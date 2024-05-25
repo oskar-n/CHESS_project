@@ -2,7 +2,15 @@
 #define BOARD_CLASS_H
 
 #include "Pawn.h"
+#include <GLFW/glfw3.h>
 
+
+enum SelectionMovement {
+	B_UP,
+	B_DOWN,
+	B_LEFT,
+	B_RIGHT
+};
 struct Board {
 	char turn;
 
@@ -11,6 +19,7 @@ struct Board {
 	Board();
 	void check_coolor(int, int);
 	void check_type();
+	void selection_movement( SelectionMovement direction);
 
 	
 };

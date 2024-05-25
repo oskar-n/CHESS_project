@@ -5,8 +5,9 @@
 struct Pawn {
 	char color;
 	char type;
+	bool is_selected;
 
-	void set(char color, char type);
+	void set(char color, char type, bool select);
 
 	void draw();
 };

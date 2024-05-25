@@ -3,7 +3,6 @@
 
 
 #include <glad/glad.h>
-#include <GLFW/glfw3.h>
 #include <stb/stb_image.h>
 
 #include <glm/glm.hpp>
@@ -22,6 +21,7 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 void processInput(GLFWwindow* window, Board &board);
+
 
 // settings
 const unsigned int SCR_WIDTH = 1200;
@@ -64,6 +64,7 @@ int main()
     glfwSetCursorPosCallback(window, mouse_callback);
     glfwSetScrollCallback(window, scroll_callback);
 
+
     // tell GLFW to capture our mouse
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
@@ -84,6 +85,7 @@ int main()
     Shader Shader_1("shader.vs", "shader.fs");
     Shader Shader_2("shader.vs", "white_shader.fs");
     Shader Shader_3("shader.vs", "black_shader.fs");
+    Shader Shader_4("shader.vs", "select_shader.fs");
 
     // set up vertex data (and buffer(s)) and configure vertex attributes
     // vertices include both cubes
@@ -186,8 +188,9 @@ int main()
          0.25f, -0.25f,  0.25f,  0.5f, 0.5f,
          0.25f, -0.25f,  0.25f,  0.5f, 0.5f,
         -0.25f, -0.25f,  0.25f,  0.0f, 0.5f,
-        -0.25f, -0.25f, -0.25f,  0.0f, 0.0f
-
+        -0.25f, -0.25f, -0.25f,  0.0f, 0.0f,
+                                                
+          
 
     };
 
@@ -246,6 +249,10 @@ int main()
     // -------------------------------------------------------------------------------------------
     Shader_1.use();
     Shader_1.setInt("texture1", 0);
+
+    
+
+   
 
 
     // render loop
@@ -354,6 +361,41 @@ int main()
             }
         }
 
+        //Displaying the select space 
+        // activate select black
+        Shader_4.use();
+
+
+        // pass projection matrix to shader (note that in this case it could change every frame)
+        projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
+        Shader_4.setMat4("projection", projection);
+
+        // camera/view transformation
+        view = camera.GetViewMatrix();
+        Shader_4.setMat4("view", view);
+
+
+        // render select space
+
+
+        for (int i = 0; i < 8; i++)
+        {
+            for (int j = 0; j < 8; j++)
+            {
+                if (board.chessboard[i][j].is_selected)
+                {
+                    std::cout << i << " " << j << std::endl;
+                    glm::mat4 cube2_model = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
+                    cube2_model = glm::translate(cube2_model, glm::vec3(1.f * j, -1.0f, 1.f * i));
+                    Shader_4.setMat4("model", cube2_model);
+                    glDrawArrays(GL_TRIANGLES, 36, 36);
+                }
+            }
+        }
+
+
+
+
 
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
         // -------------------------------------------------------------------------------
@@ -379,21 +421,25 @@ void processInput(GLFWwindow* window, Board &board)
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         glfwSetWindowShouldClose(window, true);
 
-    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+    if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
         camera.ProcessKeyboard(FORWARD, deltaTime);
-    if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+    if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
         camera.ProcessKeyboard(BACKWARD, deltaTime);
-    if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+    if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS)
         camera.ProcessKeyboard(LEFT, deltaTime);
-    if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+    if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS)
         camera.ProcessKeyboard(RIGHT, deltaTime);
 
-    if (glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS)
-    {
-        board.chessboard[0][1].set(' ', ' ');
-        board.chessboard[3][1].set('b', 'p');
-    }
+   
 
+    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+        board.selection_movement(B_UP);
+    if(glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+		board.selection_movement(B_DOWN);
+    if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+        board.selection_movement(B_LEFT);
+    if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+        board.selection_movement(B_RIGHT);
     
 }
 
@@ -405,6 +451,7 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
     // height will be significantly larger than specified on retina displays.
     glViewport(0, 0, width, height);
 }
+
 
 
 // glfw: whenever the mouse moves, this callback is called
