@@ -146,8 +146,9 @@
   <ItemGroup>
     <ClCompile Include="Board.cpp" />
     <ClCompile Include="glad.c" />
+    <ClCompile Include="Highlight_box.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Pawn.cpp" />
+    <ClCompile Include="Piece.cpp" />
     <ClCompile Include="stb.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -156,20 +157,18 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="Check_board.jpg" />
-    <Image Include="container.jpg" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Board.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Highlight_box.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Model.h" />
-    <ClInclude Include="Pawn.h" />
+    <ClInclude Include="Piece.h" />
     <ClInclude Include="Shaders.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="black_shader.fs" />
-    <None Include="select_shader.fs" />
-    <None Include="white_shader.fs" />
+    <None Include="color_shader.fs" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

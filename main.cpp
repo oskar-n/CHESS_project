@@ -28,7 +28,7 @@ const unsigned int SCR_WIDTH = 1200;
 const unsigned int SCR_HEIGHT = 800;
 
 // camera
-Camera camera(glm::vec3(3.5f, 3.0f, 14.0f));
+Camera camera(glm::vec3(13.5f, 5.0f, 3.5f));
 float lastX = SCR_WIDTH / 2.0f;
 float lastY = SCR_HEIGHT / 2.0f;
 bool firstMouse = true;
@@ -37,10 +37,19 @@ bool firstMouse = true;
 float deltaTime = 0.0f;	// time between current frame and last frame
 float lastFrame = 0.0f;
 
+struct press_check {
+	bool w = false;
+    bool a = false;
+    bool s = false;
+    bool d = false;
+    bool space = false; 
+};
+
 int main()
 {
 
     Board board;
+
     // glfw: initialize and configure
     // ------------------------------
     glfwInit();
@@ -83,9 +92,7 @@ int main()
     // build and compile our shader zprogram
     // ------------------------------------
     Shader Shader_1("shader.vs", "shader.fs");
-    Shader Shader_2("shader.vs", "white_shader.fs");
-    Shader Shader_3("shader.vs", "black_shader.fs");
-    Shader Shader_4("shader.vs", "select_shader.fs");
+    Shader Shader_2("shader.vs", "color_shader.fs");
 
     // set up vertex data (and buffer(s)) and configure vertex attributes
     // vertices include both cubes
@@ -139,7 +146,7 @@ int main()
           4.0f, -0.5f,  4.0f,  1.0f, 0.0f,
           4.0f, -0.5f,  4.0f,  1.0f, 0.0f,
          -4.0f, -0.5f,  4.0f,  0.0f, 0.0f,
-         -4.0f, -0.5f, -4.0f,  0.0f, 1.0f
+         -4.0f, -0.5f, -4.0f,  0.0f, 1.0f,
 
                                             //Small CUBE        
                  // Front face
@@ -189,14 +196,64 @@ int main()
          0.25f, -0.25f,  0.25f,  0.5f, 0.5f,
         -0.25f, -0.25f,  0.25f,  0.0f, 0.5f,
         -0.25f, -0.25f, -0.25f,  0.0f, 0.0f,
-                                                
-          
+                   
+
+
+                                            //Select space
+        // Front face
+    -0.5f, -0.1f, -0.5f,  0.0f, 0.0f,
+     0.5f, -0.1f, -0.5f,  1.0f, 0.0f,
+     0.5f,  0.1f, -0.5f,  1.0f, 1.0f,
+     0.5f,  0.1f, -0.5f,  1.0f, 1.0f,
+    -0.5f,  0.1f, -0.5f,  0.0f, 1.0f,
+    -0.5f, -0.1f, -0.5f,  0.0f, 0.0f,
+
+        // Back face
+        -0.5f, -0.1f,  0.5f,  0.0f, 0.0f,
+         0.5f, -0.1f,  0.5f,  1.0f, 0.0f,
+         0.5f,  0.1f,  0.5f,  1.0f, 1.0f,
+         0.5f,  0.1f,  0.5f,  1.0f, 1.0f,
+        -0.5f,  0.1f,  0.5f,  0.0f, 1.0f,
+        -0.5f, -0.1f,  0.5f,  0.0f, 0.0f,
+
+        // Left face
+        -0.5f,  0.1f,  0.5f,  1.0f, 0.0f,
+        -0.5f,  0.1f, -0.5f,  1.0f, 1.0f,
+        -0.5f, -0.1f, -0.5f,  0.0f, 1.0f,
+        -0.5f, -0.1f, -0.5f,  0.0f, 1.0f,
+        -0.5f, -0.1f,  0.5f,  0.0f, 0.0f,
+        -0.5f,  0.1f,  0.5f,  1.0f, 0.0f,
+
+        // Right face
+         0.5f,  0.1f,  0.5f,  1.0f, 0.0f,
+         0.5f,  0.1f, -0.5f,  1.0f, 1.0f,
+         0.5f, -0.1f, -0.5f,  0.0f, 1.0f,
+         0.5f, -0.1f, -0.5f,  0.0f, 1.0f,
+         0.5f, -0.1f,  0.5f,  0.0f, 0.0f,
+         0.5f,  0.1f,  0.5f,  1.0f, 0.0f,
+
+        // Top face
+        -0.5f,  0.1f, -0.5f,  0.0f, 1.0f,
+         0.5f,  0.1f, -0.5f,  1.0f, 1.0f,
+         0.5f,  0.1f,  0.5f,  1.0f, 0.0f,
+         0.5f,  0.1f,  0.5f,  1.0f, 0.0f,
+        -0.5f,  0.1f,  0.5f,  0.0f, 0.0f,
+        -0.5f,  0.1f, -0.5f,  0.0f, 1.0f,
+
+        // Bottom face
+        -0.5f, -0.1f, -0.5f,  0.0f, 1.0f,
+         0.5f, -0.1f, -0.5f,  1.0f, 1.0f,
+         0.5f, -0.1f,  0.5f,  1.0f, 0.0f,
+         0.5f, -0.1f,  0.5f,  1.0f, 0.0f,
+        -0.5f, -0.1f,  0.5f,  0.0f, 0.0f,
+        -0.5f, -0.1f, -0.5f,  0.0f, 1.0f
+    
 
     };
 
 
     // postions of the chessboard
-    glm::vec3 chessbordPostion(3.5f, -2.0f, 3.75f);
+    glm::vec3 chessbordPostion(3.5f, -1.95f, 3.5f);
 
     //VAO and VBO for vertices with both cubes
 
@@ -269,6 +326,10 @@ int main()
         // -----
         processInput(window, board);
 
+        //game logic
+
+        board.piece_movement();
+
         // render
         // ------
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
@@ -301,8 +362,11 @@ int main()
         glDrawArrays(GL_TRIANGLES, 0, 36);
 
         //Displaying the white chess pieces
-        // activate shader white
+        // activate color shader
         Shader_2.use();
+
+        // change color to white
+        Shader_2.setVec4("ourColor", glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
 
 
         // pass projection matrix to shader (note that in this case it could change every frame)
@@ -331,18 +395,8 @@ int main()
 		}
 
         //Displaying the black chess pieces
-        // activate shader black
-        Shader_3.use();
-
-
-        // pass projection matrix to shader (note that in this case it could change every frame)
-        projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
-        Shader_3.setMat4("projection", projection);
-
-        // camera/view transformation
-        view = camera.GetViewMatrix();
-        Shader_3.setMat4("view", view);
-
+        // change color to black
+        Shader_2.setVec4("ourColor", glm::vec4(0.0f, 0.0f, 0.0f, 1.0f));
 
         // render small boxes
 
@@ -355,44 +409,47 @@ int main()
                 {
                     glm::mat4 cube2_model = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
                     cube2_model = glm::translate(cube2_model, glm::vec3( 1.f * j, -1.2f,  1.f * i));
-                    Shader_3.setMat4("model", cube2_model);
+                    Shader_2.setMat4("model", cube2_model);
                     glDrawArrays(GL_TRIANGLES, 36, 36);
                 }
             }
         }
 
-        //Displaying the select space 
-        // activate select black
-        Shader_4.use();
-
-
-        // pass projection matrix to shader (note that in this case it could change every frame)
-        projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
-        Shader_4.setMat4("projection", projection);
-
-        // camera/view transformation
-        view = camera.GetViewMatrix();
-        Shader_4.setMat4("view", view);
-
+        //Displaying the highlight box
+    	// change color to green
+        Shader_2.setVec4("ourColor", glm::vec4(0.0, 1.0, 0.0, 1.0));
 
         // render select space
 
 
+       
+                    glm::mat4 cube2_model = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
+                    cube2_model = glm::translate(cube2_model, glm::vec3(1.f * board.highlight_box.y, -1.5f, 1.f * board.highlight_box.x));
+                    Shader_2.setMat4("model", cube2_model);
+                    glDrawArrays(GL_TRIANGLES, 72, 36);
+
+
+         //Displaying the highlight box
+    	// change color to cyan
+        Shader_2.setVec4("ourColor", glm::vec4(0.2f, 0.7f, 0.7f, 1.0f));
+
+        // render select space
+
+
+       
         for (int i = 0; i < 8; i++)
         {
             for (int j = 0; j < 8; j++)
             {
-                if (board.chessboard[i][j].is_selected)
+                if (board.chessboard[i][j].state == selected)
                 {
-                    std::cout << i << " " << j << std::endl;
                     glm::mat4 cube2_model = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
-                    cube2_model = glm::translate(cube2_model, glm::vec3(1.f * j, -1.0f, 1.f * i));
-                    Shader_4.setMat4("model", cube2_model);
-                    glDrawArrays(GL_TRIANGLES, 36, 36);
+                    cube2_model = glm::translate(cube2_model, glm::vec3(1.f * j, -1.5f, 1.f * i));
+                    Shader_2.setMat4("model", cube2_model);
+                    glDrawArrays(GL_TRIANGLES, 72, 36);
                 }
             }
         }
-
 
 
 
@@ -430,16 +487,55 @@ void processInput(GLFWwindow* window, Board &board)
     if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS)
         camera.ProcessKeyboard(RIGHT, deltaTime);
 
-   
+    
+    // Highlight movement
+    static press_check check;
 
-    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-        board.selection_movement(B_UP);
-    if(glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-		board.selection_movement(B_DOWN);
-    if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-        board.selection_movement(B_LEFT);
-    if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS && check.w==false )
+    {
+     board.selection_movement(B_LEFT);
+     check.w = true;
+    }
+    if(glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS && check.s == false)
+    {
         board.selection_movement(B_RIGHT);
+        check.s = true;
+    }
+    if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS && check.a == false)
+    {
+        board.selection_movement(B_DOWN);
+        check.a = true;
+    }
+    if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS && check.d == false)
+    {
+        board.selection_movement(B_UP);
+        check.d = true;
+    }
+    
+    if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
+    {
+        board.select_piece();
+    }
+
+    if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS)
+    {
+		board.move_piece();
+	}
+
+    if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS)
+    {
+        board.clear_selection();
+	}   
+
+    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_RELEASE)
+        check.w = false;
+    if (glfwGetKey(window, GLFW_KEY_S) == GLFW_RELEASE)
+        check.s = false;
+    if (glfwGetKey(window, GLFW_KEY_A) == GLFW_RELEASE)
+        check.a = false;
+    if (glfwGetKey(window, GLFW_KEY_D) == GLFW_RELEASE)
+        check.d = false;
+    
     
 }
 
@@ -483,3 +579,4 @@ void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 {
     camera.ProcessMouseScroll(static_cast<float>(yoffset));
 }
+

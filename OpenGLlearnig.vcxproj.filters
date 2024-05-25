@@ -27,13 +27,16 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Pawn.cpp">
+    <ClCompile Include="Piece.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Board.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="stb.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Highlight_box.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -46,15 +49,12 @@
     </Text>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="container.jpg">
-      <Filter>Resource Files\Textures</Filter>
-    </Image>
     <Image Include="Check_board.jpg">
       <Filter>Resource Files\Textures</Filter>
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Pawn.h">
+    <ClInclude Include="Piece.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Board.h">
@@ -72,15 +72,12 @@
     <ClInclude Include="Model.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Highlight_box.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="white_shader.fs">
-      <Filter>Resource Files\Shaders</Filter>
-    </None>
-    <None Include="black_shader.fs">
-      <Filter>Resource Files\Shaders</Filter>
-    </None>
-    <None Include="select_shader.fs">
+    <None Include="color_shader.fs">
       <Filter>Resource Files\Shaders</Filter>
     </None>
   </ItemGroup>

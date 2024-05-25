@@ -1,7 +1,8 @@
 #ifndef BOARD_CLASS_H
 #define BOARD_CLASS_H
 
-#include "Pawn.h"
+#include "Piece.h"
+#include "Highlight_box.h"
 #include <GLFW/glfw3.h>
 
 
@@ -11,15 +12,37 @@ enum SelectionMovement {
 	B_LEFT,
 	B_RIGHT
 };
+
+struct Memory {
+	Piece last_piece;
+	int x;
+	int y;
+
+	void clear()
+	{
+		last_piece.set(' ', ' ', not_selected);
+		x = NULL;
+		y = NULL;
+	}
+};
+
+
 struct Board {
 	char turn;
 
-	Pawn chessboard[8][8];
+	Piece chessboard[8][8];
+	Highlight_box highlight_box;
+
+	Memory memory;
 
 	Board();
 	void check_coolor(int, int);
 	void check_type();
 	void selection_movement( SelectionMovement direction);
+	void select_piece();
+	void move_piece();
+	void piece_movement();
+	void clear_selection();
 
 	
 };
