@@ -366,7 +366,7 @@ int main()
         Shader_2.use();
 
         // change color to white
-        Shader_2.setVec4("ourColor", glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
+        Shader_2.setVec4("ourColor", glm::vec4(0.9f, 0.8f, 0.5f, 0.8f));
 
 
         // pass projection matrix to shader (note that in this case it could change every frame)
@@ -396,7 +396,7 @@ int main()
 
         //Displaying the black chess pieces
         // change color to black
-        Shader_2.setVec4("ourColor", glm::vec4(0.0f, 0.0f, 0.0f, 1.0f));
+        Shader_2.setVec4("ourColor", glm::vec4(0.4f, 0.2f, 0.0f, 0.8f));
 
         // render small boxes
 
@@ -431,7 +431,7 @@ int main()
 
          //Displaying the highlight box
     	// change color to cyan
-        Shader_2.setVec4("ourColor", glm::vec4(0.2f, 0.7f, 0.7f, 1.0f));
+        Shader_2.setVec4("ourColor", glm::vec4(0.5f, 0.5f, 0.7f, 1.0f));
 
         // render select space
 
