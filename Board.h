@@ -36,6 +36,7 @@ struct Board {
 	Memory memory;
 
 	Board();
+	void reset();
 	void check_coolor(int, int);
 	void check_type();
 	void selection_movement( SelectionMovement direction);
@@ -43,6 +44,7 @@ struct Board {
 	void move_piece();
 	void piece_movement();
 	void clear_selection();
+	
 
 	
 };

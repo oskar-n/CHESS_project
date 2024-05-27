@@ -1,5 +1,4 @@
 //Project in current state operates on vertices
-//Model.h is for future version of the project
 
 
 #include <glad/glad.h>
@@ -24,8 +23,8 @@ void processInput(GLFWwindow* window, Board &board);
 
 
 // settings
-const unsigned int SCR_WIDTH = 1200;
-const unsigned int SCR_HEIGHT = 800;
+const unsigned int SCR_WIDTH = 1366;
+const unsigned int SCR_HEIGHT = 768;
 
 // camera
 Camera camera(glm::vec3(13.5f, 5.0f, 3.5f));
@@ -61,7 +60,7 @@ int main()
 
     // glfw window creation
     // --------------------
-    GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "LearnOpenGL", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "CHESS", NULL, NULL);
     if (window == NULL)
     {
         std::cout << "Failed to create GLFW window" << std::endl;
@@ -512,6 +511,15 @@ void processInput(GLFWwindow* window, Board &board)
         check.d = true;
     }
     
+    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_RELEASE)
+        check.w = false;
+    if (glfwGetKey(window, GLFW_KEY_S) == GLFW_RELEASE)
+        check.s = false;
+    if (glfwGetKey(window, GLFW_KEY_A) == GLFW_RELEASE)
+        check.a = false;
+    if (glfwGetKey(window, GLFW_KEY_D) == GLFW_RELEASE)
+        check.d = false;
+
     if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
     {
         board.select_piece();
@@ -527,14 +535,10 @@ void processInput(GLFWwindow* window, Board &board)
         board.clear_selection();
 	}   
 
-    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_RELEASE)
-        check.w = false;
-    if (glfwGetKey(window, GLFW_KEY_S) == GLFW_RELEASE)
-        check.s = false;
-    if (glfwGetKey(window, GLFW_KEY_A) == GLFW_RELEASE)
-        check.a = false;
-    if (glfwGetKey(window, GLFW_KEY_D) == GLFW_RELEASE)
-        check.d = false;
+    if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS)
+    {
+        board.reset();
+    }
     
     
 }

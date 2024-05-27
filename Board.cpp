@@ -2,6 +2,11 @@
 
 
 Board::Board() {
+	reset();
+};
+
+void Board::reset()
+{
 
 	turn = 'w';
 	for (int i = 0; i < 8; i++) {
@@ -9,7 +14,7 @@ Board::Board() {
 		{
 			chessboard[i][j].set(' ', ' ', not_selected);
 		}
-	}	
+	}
 	chessboard[0][0].set('b', 'r', not_selected);
 	chessboard[0][1].set('b', 'n', not_selected);
 	chessboard[0][2].set('b', 'b', not_selected);
@@ -21,7 +26,7 @@ Board::Board() {
 	for (int i = 0; i < 8; i++)
 	{
 		chessboard[1][i].set('b', 'p', not_selected);
-	}	
+	}
 
 	chessboard[7][0].set('w', 'r', not_selected);
 	chessboard[7][1].set('w', 'n', not_selected);
@@ -38,7 +43,7 @@ Board::Board() {
 	}
 
 	memory.clear();
-};
+}
 
 void  Board::check_coolor(int posx, int posy)
 {
@@ -109,7 +114,7 @@ void Board::move_piece()
 	
 		if (chessboard[highlight_box.x][highlight_box.y].state == selected && memory.last_piece.type != ' ')
 		{
-			if(!(highlight_box.x == memory.x && highlight_box.y == memory.y))
+			if(!(highlight_box.x == memory.x && highlight_box.y == memory.y) && chessboard[highlight_box.x][highlight_box.y].color != turn)
 			{
 				chessboard[highlight_box.x][highlight_box.y] = memory.last_piece;
 				chessboard[memory.x][memory.y].set(' ', ' ', not_selected);
@@ -130,11 +135,11 @@ void Board::piece_movement()
 		{
 			if (chessboard[i][j].state == selected)
 			{
-				if (chessboard[i][j].color == 'b' && i < 7)
+				if (chessboard[i][j].color == 'b' && i < 7 && chessboard[i + 1][j].color != 'b')
 				{
 					chessboard[i + 1][j].state = selected;
 				}
-				else if (chessboard[i][j].color == 'w' && i > 0)
+				else if (chessboard[i][j].color == 'w' && i > 0 && chessboard[i-1][j].color != 'w')
 				{
 					chessboard[i - 1][j].state = selected;
 				}
