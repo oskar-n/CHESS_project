@@ -162,11 +162,15 @@
     <ClInclude Include="Board.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Highlight_box.h" />
+    <ClInclude Include="mesh.h" />
+    <ClInclude Include="model.h" />
     <ClInclude Include="Piece.h" />
     <ClInclude Include="Shaders.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="color_shader.fs" />
+    <None Include="model_shader.fs" />
+    <None Include="model_shader.vs" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

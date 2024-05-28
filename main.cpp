@@ -11,6 +11,8 @@
 #include "Shaders.h"
 #include "Camera.h"
 #include "Board.h"
+#include "model.h"
+#include "mesh.h"
 
 
 
@@ -92,6 +94,10 @@ int main()
     // ------------------------------------
     Shader Shader_1("shader.vs", "shader.fs");
     Shader Shader_2("shader.vs", "color_shader.fs");
+    Shader Temp_Shader("model_shader.vs", "model_shader.fs");
+    Model Temp_Model("Cow.obj");
+
+
 
     // set up vertex data (and buffer(s)) and configure vertex attributes
     // vertices include both cubes
@@ -451,6 +457,21 @@ int main()
         }
 
 
+
+        Temp_Shader.use();
+
+        // view/projection transformations
+         projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
+         view = camera.GetViewMatrix();
+        Temp_Shader.setMat4("projection", projection);
+        Temp_Shader.setMat4("view", view);
+
+        // render the loaded model
+        glm::mat4 model = glm::mat4(1.0f);
+        model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f)); // translate it down so it's at the center of the scene
+        model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));	// it's a bit too big for our scene, so scale it down
+        Temp_Shader.setMat4("model", model);
+        Temp_Model.Draw(Temp_Shader);
 
 
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)

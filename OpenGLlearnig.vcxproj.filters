@@ -19,6 +19,9 @@
     <Filter Include="Resource Files\Textures">
       <UniqueIdentifier>{df8515ff-09e5-4f0f-bc0f-2800c2cd3eef}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\Models">
+      <UniqueIdentifier>{4eae339e-de57-4c52-8e8b-8de0e26dece7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="glad.c">
@@ -69,9 +72,21 @@
     <ClInclude Include="Highlight_box.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="model.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="mesh.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="color_shader.fs">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
+    <None Include="model_shader.vs">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
+    <None Include="model_shader.fs">
       <Filter>Resource Files\Shaders</Filter>
     </None>
   </ItemGroup>
