@@ -356,7 +356,11 @@ int main()
         // camera/view transformation
         glm::mat4 view = camera.GetViewMatrix();
         Shader_1.setMat4("view", view);
-       
+
+
+        glm::mat4 rotation_matrix(1.0f);//matrix of rotation 
+        Shader_1.setMat4("rotation_matrix", rotation_matrix);
+
 
         // render big box
         glBindVertexArray(VAO1);
@@ -412,10 +416,29 @@ int main()
             {
                 if (board.chessboard[i][j].color == 'b')
                 {
-                    glm::mat4 cube2_model = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
-                    cube2_model = glm::translate(cube2_model, glm::vec3( 1.f * j, -1.2f,  1.f * i));
-                    Shader_2.setMat4("model", cube2_model);
-                    glDrawArrays(GL_TRIANGLES, 36, 36);
+                    if (board.chessboard[i][j].type == 'k')
+                    {
+                        glm::mat4 cube2_model = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
+                        cube2_model = glm::translate(cube2_model, glm::vec3(1.f * j, -1.2f, 1.f * i));
+                        Shader_2.setMat4("model", cube2_model);
+                        glDrawArrays(GL_TRIANGLES, 36, 36);
+                    }
+                    if (board.chessboard[i][j].type == 'p')
+                    {
+                        // view/projection transformations
+                        rotation_matrix = glm::rotate(rotation_matrix, glm::radians(1.0f), glm::normalize(glm::vec3(0, 1, 0))); //rotates the object
+                        projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
+                        view = camera.GetViewMatrix();
+                        Temp_Shader.setMat4("projection", projection);
+                        Temp_Shader.setMat4("view", view);
+                        Temp_Shader.setMat4("rotation_matrix", rotation_matrix);
+
+                        glm::mat4 model = glm::mat4(1.0f);
+                        model = glm::translate(model, glm::vec3(1.0f * j, -1.08f, 1.0f * i)); // translate it down so it's at the center of the scene
+                        model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));	// it's a bit too big for our scene, so scale it down
+                        Temp_Shader.setMat4("model", model);
+                        Temp_Model.Draw(Temp_Shader);
+                    }
                 }
             }
         }
@@ -461,17 +484,17 @@ int main()
         Temp_Shader.use();
 
         // view/projection transformations
-         projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
+        /*projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
          view = camera.GetViewMatrix();
         Temp_Shader.setMat4("projection", projection);
         Temp_Shader.setMat4("view", view);
-
+        */
         // render the loaded model
-        glm::mat4 model = glm::mat4(1.0f);
+        /*glm::mat4 model = glm::mat4(1.0f);
         model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f)); // translate it down so it's at the center of the scene
-        model = glm::scale(model, glm::vec3(1.0f, 1.0f, 1.0f));	// it's a bit too big for our scene, so scale it down
+        model = glm::scale(model, glm::vec3(0.15f, 0.15f, 0.15f));	// it's a bit too big for our scene, so scale it down
         Temp_Shader.setMat4("model", model);
-        Temp_Model.Draw(Temp_Shader);
+        Temp_Model.Draw(Temp_Shader);*/
 
 
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
