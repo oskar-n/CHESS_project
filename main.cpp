@@ -343,25 +343,29 @@ int main()
         // bind textures on corresponding texture units
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, texture1);
-        
+
+        //configure tranformations
+        glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
+        glm::mat4 view = camera.GetViewMatrix();
+        glm::mat4 rotation_matrix(1.0f);//matrix of rotation 
+        Shader_1.use();
+        Shader_1.setMat4("projection", projection);
+        Shader_1.setMat4("view", view);
+        Shader_1.setMat4("rotation_matrix", rotation_matrix);
+        Shader_2.use();
+        Shader_2.setMat4("projection", projection);
+        Shader_2.setMat4("view", view);
+        Shader_2.setMat4("rotation_matrix", rotation_matrix);
+        Temp_Shader.use();
+        Temp_Shader.setMat4("projection", projection);
+        Temp_Shader.setMat4("view", view);
+        rotation_matrix = glm::rotate(rotation_matrix, glm::radians(1.0f), glm::normalize(glm::vec3(0, 1, 0))); //rotates the object
+        Temp_Shader.setMat4("rotation_matrix", rotation_matrix);
+
         //Displaying the chessboard
         // activate shader chessboard
         Shader_1.use();
      
-
-        // pass projection matrix to shader (note that in this case it could change every frame)
-        glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
-        Shader_1.setMat4("projection", projection);
-       
-        // camera/view transformation
-        glm::mat4 view = camera.GetViewMatrix();
-        Shader_1.setMat4("view", view);
-
-
-        glm::mat4 rotation_matrix(1.0f);//matrix of rotation 
-        Shader_1.setMat4("rotation_matrix", rotation_matrix);
-
-
         // render big box
         glBindVertexArray(VAO1);
         
@@ -370,22 +374,49 @@ int main()
         Shader_1.setMat4("model", cube1_model);
         glDrawArrays(GL_TRIANGLES, 0, 36);
 
+
+        //Displaying the highlight box
+        // change color to green
+        Shader_2.use();
+        Shader_2.setVec4("ourColor", glm::vec4(0.0, 1.0, 0.0, 1.0));
+
+        // render select space
+
+
+        glm::mat4 cube2_model = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
+        cube2_model = glm::translate(cube2_model, glm::vec3(1.f * board.highlight_box.y, -1.5f, 1.f * board.highlight_box.x));
+        Shader_2.setMat4("model", cube2_model);
+        glDrawArrays(GL_TRIANGLES, 72, 36);
+
+
+        //Displaying the highlight box
+       // change color to cyan
+        Shader_2.setVec4("ourColor", glm::vec4(0.5f, 0.5f, 0.7f, 1.0f));
+
+        // render select space
+
+
+        for (int i = 0; i < 8; i++)
+        {
+            for (int j = 0; j < 8; j++)
+            {
+                if (board.chessboard[i][j].state == selected)
+                {
+                    glm::mat4 cube2_model = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
+                    cube2_model = glm::translate(cube2_model, glm::vec3(1.f * j, -1.5f, 1.f * i));
+                    Shader_2.setMat4("model", cube2_model);
+                    glDrawArrays(GL_TRIANGLES, 72, 36);
+                }
+            }
+        }
+
+
         //Displaying the white chess pieces
         // activate color shader
         Shader_2.use();
 
         // change color to white
         Shader_2.setVec4("ourColor", glm::vec4(0.9f, 0.8f, 0.5f, 0.8f));
-
-
-        // pass projection matrix to shader (note that in this case it could change every frame)
-         projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
-        Shader_2.setMat4("projection", projection);
-
-        // camera/view transformation
-         view = camera.GetViewMatrix();
-        Shader_2.setMat4("view", view);
-
 
         // render small boxes
         
@@ -404,10 +435,13 @@ int main()
 		}
 
         //Displaying the black chess pieces
-        // change color to black
-        Shader_2.setVec4("ourColor", glm::vec4(0.4f, 0.2f, 0.0f, 0.8f));
-
+ 
         // render small boxes
+        // render cows
+
+        // activate model shader
+     
+
 
 
         for (int i = 0; i < 8; i++)
@@ -418,6 +452,8 @@ int main()
                 {
                     if (board.chessboard[i][j].type == 'k')
                     {
+                        Shader_2.use();
+                        Shader_2.setVec4("ourColor", glm::vec4(0.4f, 0.2f, 0.0f, 0.8f));
                         glm::mat4 cube2_model = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
                         cube2_model = glm::translate(cube2_model, glm::vec3(1.f * j, -1.2f, 1.f * i));
                         Shader_2.setMat4("model", cube2_model);
@@ -425,14 +461,9 @@ int main()
                     }
                     if (board.chessboard[i][j].type == 'p')
                     {
-                        // view/projection transformations
-                        rotation_matrix = glm::rotate(rotation_matrix, glm::radians(1.0f), glm::normalize(glm::vec3(0, 1, 0))); //rotates the object
-                        projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
-                        view = camera.GetViewMatrix();
-                        Temp_Shader.setMat4("projection", projection);
-                        Temp_Shader.setMat4("view", view);
-                        Temp_Shader.setMat4("rotation_matrix", rotation_matrix);
-
+                       
+                        Temp_Shader.use();
+                        Temp_Shader.setVec4("ourColor", glm::vec4(0.2f, 0.2f, 0.0f, 0.8f));
                         glm::mat4 model = glm::mat4(1.0f);
                         model = glm::translate(model, glm::vec3(1.0f * j, -1.08f, 1.0f * i)); // translate it down so it's at the center of the scene
                         model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));	// it's a bit too big for our scene, so scale it down
@@ -443,62 +474,8 @@ int main()
             }
         }
 
-        //Displaying the highlight box
-    	// change color to green
-        Shader_2.setVec4("ourColor", glm::vec4(0.0, 1.0, 0.0, 1.0));
-
-        // render select space
-
 
        
-                    glm::mat4 cube2_model = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
-                    cube2_model = glm::translate(cube2_model, glm::vec3(1.f * board.highlight_box.y, -1.5f, 1.f * board.highlight_box.x));
-                    Shader_2.setMat4("model", cube2_model);
-                    glDrawArrays(GL_TRIANGLES, 72, 36);
-
-
-         //Displaying the highlight box
-    	// change color to cyan
-        Shader_2.setVec4("ourColor", glm::vec4(0.5f, 0.5f, 0.7f, 1.0f));
-
-        // render select space
-
-
-       
-        for (int i = 0; i < 8; i++)
-        {
-            for (int j = 0; j < 8; j++)
-            {
-                if (board.chessboard[i][j].state == selected)
-                {
-                    glm::mat4 cube2_model = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
-                    cube2_model = glm::translate(cube2_model, glm::vec3(1.f * j, -1.5f, 1.f * i));
-                    Shader_2.setMat4("model", cube2_model);
-                    glDrawArrays(GL_TRIANGLES, 72, 36);
-                }
-            }
-        }
-
-
-
-        Temp_Shader.use();
-
-        // view/projection transformations
-        /*projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
-         view = camera.GetViewMatrix();
-        Temp_Shader.setMat4("projection", projection);
-        Temp_Shader.setMat4("view", view);
-        */
-        // render the loaded model
-        /*glm::mat4 model = glm::mat4(1.0f);
-        model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f)); // translate it down so it's at the center of the scene
-        model = glm::scale(model, glm::vec3(0.15f, 0.15f, 0.15f));	// it's a bit too big for our scene, so scale it down
-        Temp_Shader.setMat4("model", model);
-        Temp_Model.Draw(Temp_Shader);*/
-
-
-        // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
-        // -------------------------------------------------------------------------------
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
@@ -584,6 +561,10 @@ void processInput(GLFWwindow* window, Board &board)
         board.reset();
     }
     
+    if(glfwGetKey(window, GLFW_KEY_V) == GLFW_PRESS)
+	{
+        camera.Default(glm::vec3(13.5f, 5.0f, 3.5f));
+	}
     
 }
 
