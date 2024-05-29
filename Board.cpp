@@ -139,9 +139,34 @@ void Board::piece_movement()
 				{
 					chessboard[i + 1][j].state = selected;
 				}
-				else if (chessboard[i][j].color == 'w' && i > 0 && chessboard[i-1][j].color != 'w')
+				else if (chessboard[i][j].color == 'w' && i >= 0 )
 				{
-					chessboard[i - 1][j].state = selected;
+					if (chessboard[i][j].type == 'p')
+					{
+						chessboard[i - 1][j].state = selected;
+					}
+					if (chessboard[i][j].type == 'b') //moves of the bishop
+					{
+						for (int temp_i = 0; temp_i < 8; temp_i++)
+						{
+							if (i + temp_i < 8 && j + temp_i < 8)
+							{
+								chessboard[i + temp_i][j + temp_i].state = selected;
+							}
+							if (i + temp_i < 8 && j - temp_i >= 0)
+							{
+								chessboard[i + temp_i][j - temp_i].state = selected;
+							}
+							if (i - temp_i >= 0 && j + temp_i < 8)
+							{
+								chessboard[i - temp_i][j + temp_i].state = selected;
+							}
+							if (i - temp_i >= 0 && j - temp_i >= 0)
+							{
+								chessboard[i - temp_i][j - temp_i].state = selected;
+							}
+						}
+					}
 				}
 			}
 
