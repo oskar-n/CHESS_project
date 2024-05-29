@@ -135,19 +135,19 @@ void Board::piece_movement()
 		{
 			if (chessboard[i][j].state == selected)
 			{
-				if (chessboard[i][j].color == 'b' && i < 7 && chessboard[i + 1][j].color != 'b')
+				if (chessboard[i][j].color == 'b' && i < 7 && turn == 'b')
 				{
 					chessboard[i + 1][j].state = selected;
 				}
-				else if (chessboard[i][j].color == 'w' && i >= 0 )
+				else if (chessboard[i][j].color == 'w' && i >= 0 && turn == 'w')//memory last piece used to deactivate selected squares from other pieces
 				{
-					if (chessboard[i][j].type == 'p')
+					if (chessboard[i][j].type == 'p' && memory.last_piece.type == 'p')
 					{
 						chessboard[i - 1][j].state = selected;
 					}
-					if (chessboard[i][j].type == 'b') //moves of the bishop
+					else if (chessboard[i][j].type == 'b' && memory.last_piece.type == 'b') //moves of the white bishop
 					{
-						for (int temp_i = 0; temp_i < 8; temp_i++)
+						for (int temp_i = 1; temp_i < 8; temp_i++)
 						{
 							if (i + temp_i < 8 && j + temp_i < 8)
 							{
@@ -164,6 +164,105 @@ void Board::piece_movement()
 							if (i - temp_i >= 0 && j - temp_i >= 0)
 							{
 								chessboard[i - temp_i][j - temp_i].state = selected;
+							}
+						}
+					}
+					else if (chessboard[i][j].type == 'r' && memory.last_piece.type == 'r') //movement of the white rook
+					{
+						for (int temp_i = 1; temp_i < 8; temp_i++)
+						{
+							if (i + temp_i < 8)
+							{
+								chessboard[i + temp_i][j].state = selected;
+							}
+							if (i - temp_i >= 0)
+							{
+								chessboard[i - temp_i][j].state = selected;
+							}
+							if (j + temp_i < 8)
+							{
+								chessboard[i][j + temp_i].state = selected;
+							}
+							if (j + temp_i >= 0)
+							{
+								chessboard[i][j - temp_i].state = selected;
+							}
+						}
+					}
+					else if (chessboard[i][j].type == 'k' && memory.last_piece.type == 'k')//movement of the white king
+					{
+						if (i - 1 >= 0)
+						{
+							chessboard[i - 1][j].state = selected;
+							if (j - 1 >= 0)
+							{
+								chessboard[i - 1][j - 1].state = selected;
+							}
+						}
+						if (i + 1 < 8)
+						{
+							chessboard[i + 1][j].state = selected;
+							if (j + 1 < 8)
+							{
+								chessboard[i + 1][j + 1].state = selected;
+							}
+						}
+						if (j - 1 >= 0)
+						{
+							chessboard[i][j - 1].state = selected;
+							if (i + 1 < 8)
+							{
+								chessboard[i + 1][j - 1].state = selected;
+							}
+						}
+						if (j + 1 < 8)
+						{
+							chessboard[i][j + 1].state = selected;
+							if (i - 1 >= 0)
+							{
+								chessboard[i - 1][j + 1].state = selected;
+							}
+						}
+						
+					}
+					else if (chessboard[i][j].type == 'q' && memory.last_piece.type == 'q')
+					{
+						for (int temp_i = 1; temp_i < 8; temp_i++)
+						{
+							if (i + temp_i < 8 && j + temp_i < 8)
+							{
+								chessboard[i + temp_i][j + temp_i].state = selected;
+							}
+							if (i + temp_i < 8 && j - temp_i >= 0)
+							{
+								chessboard[i + temp_i][j - temp_i].state = selected;
+							}
+							if (i - temp_i >= 0 && j + temp_i < 8)
+							{
+								chessboard[i - temp_i][j + temp_i].state = selected;
+							}
+							if (i - temp_i >= 0 && j - temp_i >= 0)
+							{
+								chessboard[i - temp_i][j - temp_i].state = selected;
+							}
+						}
+						for (int temp_i = 1; temp_i < 8; temp_i++)
+						{
+							if (i + temp_i < 8)
+							{
+								chessboard[i + temp_i][j].state = selected;
+							}
+							if (i - temp_i >= 0)
+							{
+								chessboard[i - temp_i][j].state = selected;
+							}
+							if (j + temp_i < 8)
+							{
+								chessboard[i][j + temp_i].state = selected;
+							}
+							if (j + temp_i >= 0)
+							{
+								chessboard[i][j - temp_i].state = selected;
 							}
 						}
 					}
