@@ -152,13 +152,6 @@
     <ClCompile Include="stb.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="shader.vs" />
-    <Text Include="shader.fs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="Check_board.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="Board.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Highlight_box.h" />
@@ -168,9 +161,11 @@
     <ClInclude Include="Shaders.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="color_shader.fs" />
-    <None Include="model_shader.fs" />
-    <None Include="model_shader.vs" />
+    <None Include="shaders\color_shader.fs" />
+    <None Include="shaders\model_shader.fs" />
+    <None Include="shaders\model_shader.vs" />
+    <None Include="shaders\shader.fs" />
+    <None Include="shaders\shader.vs" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

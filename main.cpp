@@ -92,10 +92,10 @@ int main()
 
     // build and compile our shader zprogram
     // ------------------------------------
-    Shader Shader_1("shader.vs", "shader.fs");
-    Shader Shader_2("shader.vs", "color_shader.fs");
-    Shader Temp_Shader("model_shader.vs", "model_shader.fs");
-    Model Temp_Model("Cow.obj");
+    Shader Shader_1("shaders/shader.vs", "shaders/shader.fs");
+    Shader Shader_2("shaders/shader.vs", "shaders/color_shader.fs");
+    Shader Temp_Shader("shaders/model_shader.vs", "shaders/model_shader.fs");
+    Model Temp_Model("models/Cow/cow2.obj");
 
 
 
@@ -279,8 +279,8 @@ int main()
     glEnableVertexAttribArray(1);
 
 
-    // load and create a texture for chessboard
-    // -------------------------
+    //// load and create a texture for chessboard
+    //// -------------------------
     unsigned int texture1;
     // texture 1
     // ---------
@@ -295,7 +295,7 @@ int main()
     // load image, create texture and generate mipmaps
     int width, height, nrChannels;
     stbi_set_flip_vertically_on_load(true); // tell stb_image.h to flip loaded texture's on the y-axis.
-    unsigned char* data = stbi_load("Check_board.jpg", &width, &height, &nrChannels, 0);
+    unsigned char* data = stbi_load("textures/Check_board.jpg", &width, &height, &nrChannels, 0);
     if (data)
     {
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
@@ -307,8 +307,8 @@ int main()
     }
     stbi_image_free(data);
   
-    // tell opengl for each sampler to which texture unit it belongs to (only has to be done once)
-    // -------------------------------------------------------------------------------------------
+    //// tell opengl for each sampler to which texture unit it belongs to (only has to be done once)
+    //// -------------------------------------------------------------------------------------------
     Shader_1.use();
     Shader_1.setInt("texture1", 0);
 
@@ -442,7 +442,7 @@ int main()
         // activate model shader
      
 
-
+        Temp_Shader.use();
 
         for (int i = 0; i < 8; i++)
         {
@@ -452,8 +452,7 @@ int main()
                 {
                     if (board.chessboard[i][j].type == 'k')
                     {
-                        Shader_2.use();
-                        Shader_2.setVec4("ourColor", glm::vec4(0.4f, 0.2f, 0.0f, 0.8f));
+                        
                         glm::mat4 cube2_model = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
                         cube2_model = glm::translate(cube2_model, glm::vec3(1.f * j, -1.2f, 1.f * i));
                         Shader_2.setMat4("model", cube2_model);
@@ -461,9 +460,7 @@ int main()
                     }
                     if (board.chessboard[i][j].type == 'p')
                     {
-                       
-                        Temp_Shader.use();
-                        Temp_Shader.setVec4("ourColor", glm::vec4(0.2f, 0.2f, 0.0f, 0.8f));
+
                         glm::mat4 model = glm::mat4(1.0f);
                         model = glm::translate(model, glm::vec3(1.0f * j, -1.08f, 1.0f * i)); // translate it down so it's at the center of the scene
                         model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));	// it's a bit too big for our scene, so scale it down
