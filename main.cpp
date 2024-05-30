@@ -95,7 +95,12 @@ int main()
     Shader Shader_1("shaders/shader.vs", "shaders/shader.fs");
     Shader Shader_2("shaders/shader.vs", "shaders/color_shader.fs");
     Shader Temp_Shader("shaders/model_shader.vs", "shaders/model_shader.fs");
-    Model Temp_Model("models/Cow/cow2.obj");
+    Model BPawn_Model("models/Black/pawn.obj");
+    Model BKnight_Model("models/Black/knight.obj");
+    Model BRook_Model("models/Black/rook.obj");
+    Model BBishop_Model("models/Black/nishop.obj");
+    Model BQueen_Model("models/Black/queen.obj");
+    Model BKing_Model("models/Black/king.obj");
 
 
 
@@ -453,20 +458,58 @@ int main()
                     if (board.chessboard[i][j].type == 'k')
                     {
                         
-                        glm::mat4 cube2_model = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
-                        cube2_model = glm::translate(cube2_model, glm::vec3(1.f * j, -1.2f, 1.f * i));
-                        Shader_2.setMat4("model", cube2_model);
-                        glDrawArrays(GL_TRIANGLES, 36, 36);
+                        glm::mat4 model = glm::mat4(1.0f);
+                        model = glm::translate(model, glm::vec3(1.0f * j, -1.45f, 1.0f * i)); // translate it down so it's at the center of the scene
+                        model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));	// it's a bit too big for our scene, so scale it down
+                        Temp_Shader.setMat4("model", model);
+                        BKing_Model.Draw(Temp_Shader);
                     }
                     if (board.chessboard[i][j].type == 'p')
                     {
 
                         glm::mat4 model = glm::mat4(1.0f);
-                        model = glm::translate(model, glm::vec3(1.0f * j, -1.08f, 1.0f * i)); // translate it down so it's at the center of the scene
+                        model = glm::translate(model, glm::vec3(1.0f * j, -1.45f, 1.0f * i)); // translate it down so it's at the center of the scene
                         model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));	// it's a bit too big for our scene, so scale it down
                         Temp_Shader.setMat4("model", model);
-                        Temp_Model.Draw(Temp_Shader);
+                        BPawn_Model.Draw(Temp_Shader);
                     }
+                    if (board.chessboard[i][j].type == 'n')
+                    {
+                        glm::mat4 model = glm::mat4(1.0f);
+                        model = glm::translate(model, glm::vec3(1.0f * j, -1.45f, 1.0f * i)); // translate it down so it's at the center of the scene
+                        model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));	// it's a bit too big for our scene, so scale it down
+                        Temp_Shader.setMat4("model", model);
+
+                        BKnight_Model.Draw(Temp_Shader);
+                    }
+                    if (board.chessboard[i][j].type == 'b')
+                    {
+                        glm::mat4 model = glm::mat4(1.0f);
+                        model = glm::translate(model, glm::vec3(1.0f * j, -1.45f, 1.0f * i)); // translate it down so it's at the center of the scene
+                       model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));	// it's a bit too big for our scene, so scale it down
+                        Temp_Shader.setMat4("model", model);
+
+                        BBishop_Model.Draw(Temp_Shader);
+                    }
+                    if (board.chessboard[i][j].type == 'r')
+                    {
+                        glm::mat4 model = glm::mat4(1.0f);
+                        model = glm::translate(model, glm::vec3(1.0f * j, -1.45f, 1.0f * i)); // translate it down so it's at the center of the scene
+                        model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));	// it's a bit too big for our scene, so scale it down
+                        Temp_Shader.setMat4("model", model);
+
+                        BRook_Model.Draw(Temp_Shader);
+                    }
+                    if (board.chessboard[i][j].type == 'q')
+                    {
+                        glm::mat4 model = glm::mat4(1.0f);
+                        model = glm::translate(model, glm::vec3(1.0f * j, -1.45f, 1.0f * i)); // translate it down so it's at the center of the scene
+                        model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));	// it's a bit too big for our scene, so scale it down
+                        Temp_Shader.setMat4("model", model);
+
+                        BQueen_Model.Draw(Temp_Shader);
+                    }
+
                 }
             }
         }
