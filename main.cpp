@@ -38,6 +38,8 @@ bool firstMouse = true;
 float deltaTime = 0.0f;	// time between current frame and last frame
 float lastFrame = 0.0f;
 
+
+
 struct press_check {
 	bool w = false;
     bool a = false;
@@ -98,9 +100,16 @@ int main()
     Model BPawn_Model("models/Black/pawn.obj");
     Model BKnight_Model("models/Black/knight.obj");
     Model BRook_Model("models/Black/rook.obj");
-    Model BBishop_Model("models/Black/nishop.obj");
+    Model BBishop_Model("models/Black/bishop.obj");
     Model BQueen_Model("models/Black/queen.obj");
     Model BKing_Model("models/Black/king.obj");
+
+    Model WPawn_Model("models/White/Pawn.obj");
+    Model WKnight_Model("models/White/Knight.obj");
+    Model WRook_Model("models/White/Rook.obj");
+    Model WBishop_Model("models/White/Bishop.obj");
+    Model WQueen_Model("models/White/Queen.obj");
+    Model WKing_Model("models/White/King.obj");
 
 
 
@@ -158,57 +167,7 @@ int main()
          -4.0f, -0.5f,  4.0f,  0.0f, 0.0f,
          -4.0f, -0.5f, -4.0f,  0.0f, 1.0f,
 
-                                            //Small CUBE        
-                 // Front face
-        - 0.25f, -0.25f, -0.25f,  0.0f, 0.0f,
-         0.25f, -0.25f, -0.25f,  0.5f, 0.0f,
-         0.25f,  0.25f, -0.25f,  0.5f, 0.5f,
-         0.25f,  0.25f, -0.25f,  0.5f, 0.5f,
-        -0.25f,  0.25f, -0.25f,  0.0f, 0.5f,
-        -0.25f, -0.25f, -0.25f,  0.0f, 0.0f,
-
-        // Back face
-        -0.25f, -0.25f,  0.25f,  0.0f, 0.0f,
-         0.25f, -0.25f,  0.25f,  0.5f, 0.0f,
-         0.25f,  0.25f,  0.25f,  0.5f, 0.5f,
-         0.25f,  0.25f,  0.25f,  0.5f, 0.5f,
-        -0.25f,  0.25f,  0.25f,  0.0f, 0.5f,
-        -0.25f, -0.25f,  0.25f,  0.0f, 0.0f,
-
-        // Left face
-        -0.25f,  0.25f,  0.25f,  0.5f, 0.0f,
-        -0.25f,  0.25f, -0.25f,  0.5f, 0.5f,
-        -0.25f, -0.25f, -0.25f,  0.0f, 0.5f,
-        -0.25f, -0.25f, -0.25f,  0.0f, 0.5f,
-        -0.25f, -0.25f,  0.25f,  0.0f, 0.0f,
-        -0.25f,  0.25f,  0.25f,  0.5f, 0.0f,
-
-        // Right face
-         0.25f,  0.25f,  0.25f,  0.5f, 0.0f,
-         0.25f,  0.25f, -0.25f,  0.5f, 0.5f,
-         0.25f, -0.25f, -0.25f,  0.0f, 0.5f,
-         0.25f, -0.25f, -0.25f,  0.0f, 0.5f,
-         0.25f, -0.25f,  0.25f,  0.0f, 0.0f,
-         0.25f,  0.25f,  0.25f,  0.5f, 0.0f,
-
-        // Top face
-        -0.25f,  0.25f, -0.25f,  0.0f, 0.5f,
-         0.25f,  0.25f, -0.25f,  0.5f, 0.5f,
-         0.25f,  0.25f,  0.25f,  0.5f, 1.0f,
-         0.25f,  0.25f,  0.25f,  0.5f, 1.0f,
-        -0.25f,  0.25f,  0.25f,  0.0f, 1.0f,
-        -0.25f,  0.25f, -0.25f,  0.0f, 0.5f,
-
-        // Bottom face
-        -0.25f, -0.25f, -0.25f,  0.0f, 0.0f,
-         0.25f, -0.25f, -0.25f,  0.5f, 0.0f,
-         0.25f, -0.25f,  0.25f,  0.5f, 0.5f,
-         0.25f, -0.25f,  0.25f,  0.5f, 0.5f,
-        -0.25f, -0.25f,  0.25f,  0.0f, 0.5f,
-        -0.25f, -0.25f, -0.25f,  0.0f, 0.0f,
-                   
-
-
+         
                                             //Select space
         // Front face
     -0.5f, -0.1f, -0.5f,  0.0f, 0.0f,
@@ -383,7 +342,9 @@ int main()
         //Displaying the highlight box
         // change color to green
         Shader_2.use();
-        Shader_2.setVec4("ourColor", glm::vec4(0.0, 1.0, 0.0, 1.0));
+        if (board.turn == 'w')
+            Shader_2.setVec4("ourColor", glm::vec4(1.0, 0.992, 0.816, 1.0));
+        else  Shader_2.setVec4("ourColor", glm::vec4(0.396, 0.263, 0.129, 1.0));
 
         // render select space
 
@@ -391,15 +352,13 @@ int main()
         glm::mat4 cube2_model = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
         cube2_model = glm::translate(cube2_model, glm::vec3(1.f * board.highlight_box.y, -1.5f, 1.f * board.highlight_box.x));
         Shader_2.setMat4("model", cube2_model);
-        glDrawArrays(GL_TRIANGLES, 72, 36);
+        glDrawArrays(GL_TRIANGLES, 36, 36);
 
 
-        //Displaying the highlight box
+        //Displaying the move spaces
        // change color to cyan
-        Shader_2.setVec4("ourColor", glm::vec4(0.5f, 0.5f, 0.7f, 1.0f));
-
-        // render select space
-
+        
+        Shader_2.setVec4("ourColor", glm::vec4(0.0, 0.545, 0.545, 1.0));
 
         for (int i = 0; i < 8; i++)
         {
@@ -410,49 +369,80 @@ int main()
                     glm::mat4 cube2_model = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
                     cube2_model = glm::translate(cube2_model, glm::vec3(1.f * j, -1.5f, 1.f * i));
                     Shader_2.setMat4("model", cube2_model);
-                    glDrawArrays(GL_TRIANGLES, 72, 36);
+                    glDrawArrays(GL_TRIANGLES, 36, 36);
                 }
             }
         }
 
 
-        //Displaying the white chess pieces
-        // activate color shader
-        Shader_2.use();
+       
 
-        // change color to white
-        Shader_2.setVec4("ourColor", glm::vec4(0.9f, 0.8f, 0.5f, 0.8f));
-
-        // render small boxes
-        
-        for (int i = 0; i < 8; i++)
-        {
-            for (int j = 0; j < 8; j++)
-            {
-                if (board.chessboard[i][j].color == 'w')
-                {
-					glm::mat4 cube2_model = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
-					cube2_model = glm::translate(cube2_model, glm::vec3(1.f*j, -1.2f, 1.f * i));
-					Shader_2.setMat4("model", cube2_model);
-					glDrawArrays(GL_TRIANGLES, 36, 36);
-				}
-			}
-		}
-
-        //Displaying the black chess pieces
+        //Displaying the  chess pieces
  
-        // render small boxes
-        // render cows
-
-        // activate model shader
-     
-
         Temp_Shader.use();
 
         for (int i = 0; i < 8; i++)
         {
             for (int j = 0; j < 8; j++)
             {
+
+                if (board.chessboard[i][j].color == 'w')
+                {
+                    if (board.chessboard[i][j].type == 'k')
+                    {
+						glm::mat4 model = glm::mat4(1.0f);
+                        model = glm::translate(model, glm::vec3(1.0f * j, -1.45f, 1.0f * i));
+                        model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
+                        Temp_Shader.setMat4("model", model);
+                        WKing_Model.Draw(Temp_Shader);
+                    }
+                    if (board.chessboard[i][j].type == 'p')
+                    {
+
+                        glm::mat4 model = glm::mat4(1.0f);
+                        model = glm::translate(model, glm::vec3(1.0f * j, -1.45f, 1.0f * i)); 
+                        model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));	
+                        Temp_Shader.setMat4("model", model);
+                        WPawn_Model.Draw(Temp_Shader);
+                    }
+                    if (board.chessboard[i][j].type == 'n')
+                    {
+                        glm::mat4 model = glm::mat4(1.0f);
+                        model = glm::translate(model, glm::vec3(1.0f * j, -1.45f, 1.0f * i)); 
+                        model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));	
+                        Temp_Shader.setMat4("model", model);
+
+                        WKnight_Model.Draw(Temp_Shader);
+                    }
+                    if (board.chessboard[i][j].type == 'b')
+                    {
+                        glm::mat4 model = glm::mat4(1.0f);
+                        model = glm::translate(model, glm::vec3(1.0f * j, -1.45f, 1.0f * i));
+                        model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));
+                        Temp_Shader.setMat4("model", model);
+
+                        WBishop_Model.Draw(Temp_Shader);
+                    }
+                    if (board.chessboard[i][j].type == 'r')
+                    {
+                        glm::mat4 model = glm::mat4(1.0f);
+                        model = glm::translate(model, glm::vec3(1.0f * j, -1.45f, 1.0f * i));
+                        model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));	
+                        Temp_Shader.setMat4("model", model);
+
+                        WRook_Model.Draw(Temp_Shader);
+                    }
+                    if (board.chessboard[i][j].type == 'q')
+                    {
+                        glm::mat4 model = glm::mat4(1.0f);
+                        model = glm::translate(model, glm::vec3(1.0f * j, -1.45f, 1.0f * i)); 
+                        model = glm::scale(model, glm::vec3(0.1f, 0.1f, 0.1f));	
+                        Temp_Shader.setMat4("model", model);
+
+                        WQueen_Model.Draw(Temp_Shader);
+                    }
+                }
+
                 if (board.chessboard[i][j].color == 'b')
                 {
                     if (board.chessboard[i][j].type == 'k')
