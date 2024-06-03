@@ -173,6 +173,7 @@
     <ClInclude Include="Shaders.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="models\cow2.mtl" />
     <None Include="shaders\color_shader.fs" />
     <None Include="shaders\model_shader.fs" />
     <None Include="shaders\model_shader.vs" />

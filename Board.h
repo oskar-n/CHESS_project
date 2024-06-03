@@ -20,7 +20,7 @@ struct Memory {
 
 	void clear()
 	{
-		last_piece.set(' ', ' ', not_selected);
+		last_piece.set(' ', ' ', not_selected, false);
 		x = NULL;
 		y = NULL;
 	}

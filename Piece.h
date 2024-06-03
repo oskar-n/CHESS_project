@@ -12,8 +12,9 @@ struct Piece {
 	char color;
 	char type;
 	int state;
+	bool has_moved;
 
-	void set(char color, char type, State state);
+	void set(char color, char type, State state, bool has_moved);
 
 	
 };
