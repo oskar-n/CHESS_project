@@ -356,7 +356,7 @@ int main()
 
 
         //Displaying the move spaces
-       // change color to cyan
+        // change color to cyan
         
         Shader_2.setVec4("ourColor", glm::vec4(0.0, 0.545, 0.545, 1.0));
 
@@ -504,6 +504,10 @@ int main()
             }
         }
 
+        if (board.is_check(board.chessboard))
+        {
+            board.reset();
+        }
 
        
         glfwSwapBuffers(window);

@@ -666,3 +666,23 @@ void Board::clear_selection()
 	}
 	memory.clear();
 }
+
+bool Board::is_check(Piece chessboard[8][8])
+{
+	int temp_w_king = 0;
+	int temp_b_king = 0;
+	for (int i = 0; i < 8; i++)
+	{
+		for (int j = 0; j < 8; j++)
+		{
+			if (chessboard[i][j].color == 'w' && chessboard[i][j].type == 'k')
+				temp_w_king = 1;
+			if (chessboard[i][j].color == 'b' && chessboard[i][j].type == 'k')
+				temp_b_king = 1;
+		}
+	}
+	if (temp_w_king == 0 || temp_b_king == 0)
+		return true;
+	else
+		return false;
+};
