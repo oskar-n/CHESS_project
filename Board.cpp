@@ -1,4 +1,5 @@
 #include "Board.h"
+#include <iostream>
 
 
 Board::Board() {
@@ -152,6 +153,7 @@ void Board::piece_movement()
 						{
 							chessboard[i + 1][j - 1].state = selected;
 						}
+
 						if (chessboard[i + 1][j + 1].color == 'w' && j + 1 < 8)
 						{
 							chessboard[i + 1][j + 1].state = selected;
@@ -248,6 +250,7 @@ void Board::piece_movement()
 							{
 								chessboard[i - 1][j - 1].state = (chessboard[i - 1][j - 1].color == 'b') ? not_selected : selected;
 							}
+
 						}
 						if (i + 1 < 8)
 						{
@@ -669,20 +672,167 @@ void Board::clear_selection()
 
 bool Board::is_check(Piece chessboard[8][8])
 {
-	int temp_w_king = 0;
-	int temp_b_king = 0;
 	for (int i = 0; i < 8; i++)
 	{
 		for (int j = 0; j < 8; j++)
 		{
-			if (chessboard[i][j].color == 'w' && chessboard[i][j].type == 'k')
-				temp_w_king = 1;
-			if (chessboard[i][j].color == 'b' && chessboard[i][j].type == 'k')
-				temp_b_king = 1;
+
+			if (chessboard[i][j].color == 'w')
+			{
+				if (chessboard[i][j].type == 'p')
+				{
+					if (i >= 1 && j >= 1)
+					{
+						if (chessboard[i - 1][j + 1].color == 'b' && chessboard[i - 1][j + 1].type == 'k')
+						{
+							return true;
+						}
+						if (chessboard[i - 1][j - 1].color == 'b' && chessboard[i - 1][j - 1].type == 'k')
+						{
+							return true;
+						}
+					}
+				}
+				if (chessboard[i][j].type == 'b')
+				{
+					for (int temp_i = 1; temp_i < 8; temp_i++)
+					{
+						if (i + temp_i < 8 && j + temp_i < 8)
+						{
+							if (chessboard[i + temp_i][j + temp_i].color == 'b' && chessboard[i + temp_i][j + temp_i].type != 'k') break;
+							if (chessboard[i + temp_i][j + temp_i].color == 'w') break;
+							if (chessboard[i + temp_i][j + temp_i].color == 'b' && (chessboard[i + temp_i][j + temp_i].type == 'k'))
+								return true;
+						}
+					}
+					for (int temp_i = 1; temp_i < 8; temp_i++)
+					{
+						if (i + temp_i < 8 && j - temp_i >= 0)
+						{
+							if (chessboard[i + temp_i][j - temp_i].color == 'b' && chessboard[i + temp_i][j - temp_i].type != 'k') break;
+							if (chessboard[i + temp_i][j - temp_i].color == 'w') break;
+							if (chessboard[i + temp_i][j - temp_i].color == 'b' && (chessboard[i + temp_i][j - temp_i].type == 'k'))
+								return true;
+						}
+					}
+					for (int temp_i = 1; temp_i < 8; temp_i++)
+					{
+						if (i - temp_i >= 0 && j + temp_i < 8)
+						{
+							if (chessboard[i - temp_i][j + temp_i].color == 'b' && chessboard[i - temp_i][j + temp_i].type != 'k') break;
+							if (chessboard[i - temp_i][j + temp_i].color == 'w') break;
+							if (chessboard[i - temp_i][j + temp_i].color == 'b' && (chessboard[i - temp_i][j + temp_i].type == 'k'))
+								return true;
+						}
+					}
+					for (int temp_i = 1; temp_i < 8; temp_i++)
+					{
+						if (i - temp_i >= 0 && j - temp_i >= 0)
+						{
+							if (chessboard[i - temp_i][j - temp_i].color == 'b' && chessboard[i - temp_i][j - temp_i].type != 'k') break;
+							if (chessboard[i - temp_i][j - temp_i].color == 'w') break;
+							if (chessboard[i - temp_i][j - temp_i].color == 'b' && (chessboard[i - temp_i][j - temp_i].type == 'k'))
+								return true;
+						}
+					}
+				}
+				/*if (chessboard[i][j].type == 'r')
+				{
+					for(int temp_i = 1; temp_i < 8; temp_i ++)
+					{
+						if (i + temp_i < 8)
+						{
+							if (chessboard[i + temp_i][j].color == 'b' && chessboard[i + temp_i][j].type =='k') 
+
+						}
+
+						if (i - temp_i >= 0)
+						{
+							if (chessboard[i - temp_i][j].color == 'w') break;
+							chessboard[i - temp_i][j].state = selected;
+							if (chessboard[i - temp_i][j].color == 'b') break;
+						}
+
+						if (j + temp_i < 8)
+						{
+							if (chessboard[i][j + temp_i].color == 'w') break;
+							chessboard[i][j + temp_i].state = selected;
+							if (chessboard[i][j + temp_i].color == 'b') break;
+						}
+
+						if (j - temp_i >= 0)
+						{
+							if (chessboard[i][j - temp_i].color == 'w') break;
+							chessboard[i][j - temp_i].state = selected;
+							if (chessboard[i][j - temp_i].color == 'b') break;
+						}
+					}
+				}*/
+			}
+
+			if (chessboard[i][j].color == 'b')
+			{
+				if (chessboard[i][j].type == 'p')
+				{
+					if (i < 8 && j >= 1 && j < 8)
+					{
+						if (chessboard[i + 1][j + 1].color == 'w' && chessboard[i + 1][j + 1].type == 'k')
+						{
+							return true;
+						}
+						if (chessboard[i + 1][j - 1].color == 'w' && chessboard[i + 1][j - 1].type == 'k')
+						{
+							return true;
+						}
+					}
+				}
+
+				if (chessboard[i][j].type == 'b')
+				{
+					for (int temp_i = 1; temp_i < 8; temp_i++)
+					{
+						if (i + temp_i < 8 && j + temp_i < 8)
+						{
+							if (chessboard[i + temp_i][j + temp_i].color == 'w' && chessboard[i + temp_i][j + temp_i].type != 'k') break;
+							if (chessboard[i + temp_i][j + temp_i].color == 'b') break;
+							if (chessboard[i + temp_i][j + temp_i].color == 'w' && (chessboard[i + temp_i][j + temp_i].type == 'k'))
+								return true;
+						}
+					}
+					for (int temp_i = 1; temp_i < 8; temp_i++)
+					{
+						if (i + temp_i < 8 && j - temp_i >= 0)
+						{
+							if (chessboard[i + temp_i][j - temp_i].color == 'w' && chessboard[i + temp_i][j - temp_i].type != 'k') break;
+							if (chessboard[i + temp_i][j - temp_i].color == 'b') break;
+							if (chessboard[i + temp_i][j - temp_i].color == 'w' && (chessboard[i + temp_i][j - temp_i].type == 'k'))
+								return true;
+						}
+					}
+					for (int temp_i = 1; temp_i < 8; temp_i++)
+					{
+						if (i - temp_i >= 0 && j + temp_i < 8)
+						{
+							if (chessboard[i - temp_i][j + temp_i].color == 'w' && chessboard[i - temp_i][j + temp_i].type != 'k') break;
+							if (chessboard[i - temp_i][j + temp_i].color == 'b') break;
+							if (chessboard[i - temp_i][j + temp_i].color == 'w' && (chessboard[i - temp_i][j + temp_i].type == 'k'))
+								return true;
+						}
+					}
+					for (int temp_i = 1; temp_i < 8; temp_i++)
+					{
+						if (i - temp_i >= 0 && j - temp_i >= 0)
+						{
+							if (chessboard[i - temp_i][j - temp_i].color == 'w' && chessboard[i - temp_i][j - temp_i].type != 'k') break;
+							if (chessboard[i - temp_i][j - temp_i].color == 'b') break;
+							if (chessboard[i - temp_i][j - temp_i].color == 'w' && (chessboard[i - temp_i][j - temp_i].type == 'k'))
+								return true;
+						}
+					}
+				}
+			}
 		}
 	}
-	if (temp_w_king == 0 || temp_b_king == 0)
-		return true;
-	else
-		return false;
+
+	return false;
 };

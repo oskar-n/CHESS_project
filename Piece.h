@@ -14,6 +14,7 @@ struct Piece {
 	int state;
 	bool has_moved;
 
+
 	void set(char color, char type, State state, bool has_moved);
 
 	
