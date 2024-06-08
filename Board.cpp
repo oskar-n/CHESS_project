@@ -115,10 +115,10 @@ void Board::move_piece()
 		{
 			if(!(highlight_box.x == memory.x && highlight_box.y == memory.y) && chessboard[highlight_box.x][highlight_box.y].color != turn)
 			{
-				if (is_check(chessboard))
+				if (is_check())
 				{
 					chessboard[highlight_box.x][highlight_box.y] = memory.last_piece;
-					if (is_check(chessboard))
+					if (is_check())
 					{
 						chessboard[highlight_box.x][highlight_box.y].set(' ', ' ', not_selected, false);
 					}
@@ -684,7 +684,7 @@ void Board::clear_selection()
 	memory.clear();
 }
 
-bool Board::is_check(Piece chessboard[8][8])
+bool Board::is_check()
 {
 	for (int i = 0; i < 8; i++)
 	{

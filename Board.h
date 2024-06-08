@@ -44,7 +44,7 @@ struct Board {
 	void move_piece();
 	void piece_movement();
 	void clear_selection();
-	bool is_check(Piece chessboard[8][8]);
+	bool is_check();
 	
 
 	
