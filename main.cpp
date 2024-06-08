@@ -506,10 +506,10 @@ int main()
 
         //Reseting the chessboard after capturing the king
 
-        if (board.is_check(board.chessboard))
+        /*if (board.is_check(board.chessboard))
         {
             board.reset();
-        }
+        }*/
 
        
         glfwSwapBuffers(window);
