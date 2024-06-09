@@ -115,12 +115,14 @@ void Board::move_piece()
 		{
 			if(!(highlight_box.x == memory.x && highlight_box.y == memory.y) && chessboard[highlight_box.x][highlight_box.y].color != turn)
 			{
-				if (is_check())
+				if (is_white_in_check() && turn =='w')
 				{
 					chessboard[highlight_box.x][highlight_box.y] = memory.last_piece;
-					if (is_check())
+					chessboard[memory.x][memory.y].set(' ', ' ', not_selected, false);
+					if (is_white_in_check())
 					{
 						chessboard[highlight_box.x][highlight_box.y].set(' ', ' ', not_selected, false);
+						chessboard[memory.x][memory.y] = memory.last_piece;
 					}
 					else
 					{
@@ -131,14 +133,59 @@ void Board::move_piece()
 						turn = (turn == 'w') ? 'b' : 'w';
 					}
 				}
-				else
+				else if(is_black_in_check() && turn =='b')
 				{
 					chessboard[highlight_box.x][highlight_box.y] = memory.last_piece;
-					chessboard[highlight_box.x][highlight_box.y].has_moved = true;
 					chessboard[memory.x][memory.y].set(' ', ' ', not_selected, false);
-					memory.clear();
-					clear_selection();
-					turn = (turn == 'w') ? 'b' : 'w';
+					if (is_black_in_check())
+					{
+						chessboard[highlight_box.x][highlight_box.y].set(' ', ' ', not_selected, false);
+						chessboard[memory.x][memory.y] = memory.last_piece;
+					}
+					else
+					{
+						chessboard[highlight_box.x][highlight_box.y].has_moved = true;
+						chessboard[memory.x][memory.y].set(' ', ' ', not_selected, false);
+						memory.clear();
+						clear_selection();
+						turn = (turn == 'w') ? 'b' : 'w';
+					}
+				}
+				else if(!is_white_in_check() && turn == 'w')
+				{
+					chessboard[highlight_box.x][highlight_box.y] = memory.last_piece;
+					chessboard[memory.x][memory.y].set(' ', ' ', not_selected, false);
+					if (is_white_in_check())
+					{
+						chessboard[highlight_box.x][highlight_box.y].set(' ', ' ', not_selected, false);
+						chessboard[memory.x][memory.y] = memory.last_piece;
+					}
+					else
+					{
+						chessboard[highlight_box.x][highlight_box.y].has_moved = true;
+						chessboard[memory.x][memory.y].set(' ', ' ', not_selected, false);
+						memory.clear();
+						clear_selection();
+						turn = (turn == 'w') ? 'b' : 'w';
+					}
+				}
+				else if (!is_black_in_check() && turn == 'b')
+				{
+					chessboard[highlight_box.x][highlight_box.y] = memory.last_piece;
+					chessboard[memory.x][memory.y].set(' ', ' ', not_selected, false);
+					if (is_black_in_check())
+					{
+						chessboard[highlight_box.x][highlight_box.y].set(' ', ' ', not_selected, false);
+						chessboard[memory.x][memory.y] = memory.last_piece;
+					}
+					else
+					{
+						chessboard[highlight_box.x][highlight_box.y].has_moved = true;
+						chessboard[memory.x][memory.y].set(' ', ' ', not_selected, false);
+						memory.clear();
+						clear_selection();
+						turn = (turn == 'w') ? 'b' : 'w';
+					}
 				}
 			}
 		}
@@ -684,14 +731,14 @@ void Board::clear_selection()
 	memory.clear();
 }
 
-bool Board::is_check()
+bool Board::is_black_in_check()
 {
 	for (int i = 0; i < 8; i++)
 	{
 		for (int j = 0; j < 8; j++)
 		{
 
-			if (chessboard[i][j].color == 'w') //checking for check for white pieces
+			if (chessboard[i][j].color == 'w') //checking if black king is in check
 			{
 				if (chessboard[i][j].type == 'p')
 				{
@@ -757,7 +804,7 @@ bool Board::is_check()
 						if (i + temp_i < 8)
 						{
 							if (chessboard[i + temp_i][j].color == 'w') break;
-							if (chessboard[i + temp_i][j].color == 'b' && chessboard[i+temp_i][j].type != 'k') break;
+							if (chessboard[i + temp_i][j].color == 'b' && chessboard[i + temp_i][j].type != 'k') break;
 							if (chessboard[i + temp_i][j].color == 'b' && chessboard[i + temp_i][j].type == 'k')
 								return true;
 						}
@@ -964,8 +1011,19 @@ bool Board::is_check()
 					}
 				}
 			}
+		}
+	}
 
-			if (chessboard[i][j].color == 'b')
+	return false;
+};
+
+bool Board::is_white_in_check()
+{
+	for (int i = 0; i < 8; i++)
+	{
+		for (int j = 0; j < 8; j++)
+		{
+			if (chessboard[i][j].color == 'b') //checking if white king is in check
 			{
 				if (chessboard[i][j].type == 'p')
 				{
@@ -1243,4 +1301,5 @@ bool Board::is_check()
 	}
 
 	return false;
-};
+}
+	

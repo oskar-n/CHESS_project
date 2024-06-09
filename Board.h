@@ -44,7 +44,8 @@ struct Board {
 	void move_piece();
 	void piece_movement();
 	void clear_selection();
-	bool is_check();
+	bool is_white_in_check();
+	bool is_black_in_check();
 	
 
 	

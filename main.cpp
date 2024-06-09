@@ -1,6 +1,7 @@
 //Project in current state operates on vertices
 
 
+#include <iostream>
 #include <glad/glad.h>
 #include <stb/stb_image.h>
 
@@ -14,15 +15,10 @@
 #include "model.h"
 #include "mesh.h"
 
-
-
-#include <iostream>
-
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 void processInput(GLFWwindow* window, Board &board);
-
 
 // settings
 const unsigned int SCR_WIDTH = 1366;
@@ -37,8 +33,6 @@ bool firstMouse = true;
 // timing
 float deltaTime = 0.0f;	// time between current frame and last frame
 float lastFrame = 0.0f;
-
-
 
 struct press_check {
 	bool w = false;
@@ -60,8 +54,6 @@ int main()
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-
-
     // glfw window creation
     // --------------------
     GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "CHESS", NULL, NULL);
@@ -75,7 +67,6 @@ int main()
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
     glfwSetCursorPosCallback(window, mouse_callback);
     glfwSetScrollCallback(window, scroll_callback);
-
 
     // tell GLFW to capture our mouse
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
@@ -276,11 +267,6 @@ int main()
     Shader_1.use();
     Shader_1.setInt("texture1", 0);
 
-    
-
-   
-
-
     // render loop
     // -----------
     while (!glfwWindowShouldClose(window))
@@ -338,7 +324,6 @@ int main()
         Shader_1.setMat4("model", cube1_model);
         glDrawArrays(GL_TRIANGLES, 0, 36);
 
-
         //Displaying the highlight box
         // change color to green
         Shader_2.use();
@@ -348,12 +333,10 @@ int main()
 
         // render select space
 
-
         glm::mat4 cube2_model = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
         cube2_model = glm::translate(cube2_model, glm::vec3(1.f * board.highlight_box.y, -1.5f, 1.f * board.highlight_box.x));
         Shader_2.setMat4("model", cube2_model);
         glDrawArrays(GL_TRIANGLES, 36, 36);
-
 
         //Displaying the move spaces
         // change color to cyan
@@ -373,9 +356,6 @@ int main()
                 }
             }
         }
-
-
-       
 
         //Displaying the  chess pieces
  
@@ -503,14 +483,6 @@ int main()
                 }
             }
         }
-
-        //Reseting the chessboard after capturing the king
-
-        /*if (board.is_check(board.chessboard))
-        {
-            board.reset();
-        }*/
-
        
         glfwSwapBuffers(window);
         glfwPollEvents();
@@ -612,8 +584,6 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
     // height will be significantly larger than specified on retina displays.
     glViewport(0, 0, width, height);
 }
-
-
 
 // glfw: whenever the mouse moves, this callback is called
 // -------------------------------------------------------
