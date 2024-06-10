@@ -293,13 +293,13 @@ int main()
         {
             glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         }
-
+        else 
         //checking for checkmate
         if (board.is_white_in_checkmate())
         {
             glClearColor(0.396, 0.263, 0.129, 1.0);
         }
-
+        else
         if (board.is_black_in_checkmate())
         {
             glClearColor(1.0, 0.992, 0.816, 1.0);
@@ -353,7 +353,10 @@ int main()
         glm::mat4 cube2_model = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
         cube2_model = glm::translate(cube2_model, glm::vec3(1.f * board.highlight_box.y, -1.5f, 1.f * board.highlight_box.x));
         Shader_2.setMat4("model", cube2_model);
-        glDrawArrays(GL_TRIANGLES, 36, 36);
+        if (!board.is_black_in_checkmate() || !board.is_white_in_checkmate())
+        {
+            glDrawArrays(GL_TRIANGLES, 36, 36);
+        }
 
         //Displaying the move spaces
         // change color to cyan
