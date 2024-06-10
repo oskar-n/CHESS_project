@@ -293,7 +293,7 @@ int main()
         {
             glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         }
-        else 
+       
         //checking for checkmate
         if (board.is_white_in_checkmate())
         {
@@ -357,7 +357,6 @@ int main()
         {
             glDrawArrays(GL_TRIANGLES, 36, 36);
         }
-
         //Displaying the move spaces
         // change color to cyan
         

@@ -758,7 +758,7 @@ bool Board::is_black_in_check()
 			{
 				if (chessboard[i][j].type == 'p')
 				{
-					if (i >= 1 && j >= 1)
+					if (i - 1>= 0 && j + 1 < 8 && j - 1 >=0)
 					{
 						if (chessboard[i - 1][j + 1].color == 'b' && chessboard[i - 1][j + 1].type == 'k')
 						{
@@ -1332,78 +1332,88 @@ bool Board::is_white_in_checkmate()
 			{
 				if (chessboard[i][j].color == 'w')
 				{
-					if (chessboard[i][j].type == 'p' && i - 1 >= 0) //checking possible moves of pawns 
+					
+					if (i - 1 >= 0)
 					{
-						if (chessboard[i - 1][j].type == ' ')
+						if (chessboard[i][j].type == 'p') //checking possible moves of pawns 
 						{
-							temp_type = chessboard[i - 1][j].type;
-							temp_color = chessboard[i - 1][j].color;
-							chessboard[i - 1][j].color = 'w';
-							chessboard[i - 1][j].type = 'p';
-							chessboard[i][j].color = ' ';
-							chessboard[i][j].type = ' ';
-							if (!is_white_in_check())
+							if (chessboard[i - 1][j].type == ' ')
 							{
-								chessboard[i - 1][j].color = temp_color;
-								chessboard[i - 1][j].type = temp_type;
-								chessboard[i][j].color = 'w';
-								chessboard[i][j].type = 'p';
-								return false;
+								temp_type = chessboard[i - 1][j].type;
+								temp_color = chessboard[i - 1][j].color;
+								chessboard[i - 1][j].color = 'w';
+								chessboard[i - 1][j].type = 'p';
+								chessboard[i][j].color = ' ';
+								chessboard[i][j].type = ' ';
+								if (!is_white_in_check())
+								{
+									chessboard[i - 1][j].color = temp_color;
+									chessboard[i - 1][j].type = temp_type;
+									chessboard[i][j].color = 'w';
+									chessboard[i][j].type = 'p';
+									return false;
+								}
+								else
+								{
+									chessboard[i - 1][j].color = temp_color;
+									chessboard[i - 1][j].type = temp_type;
+									chessboard[i][j].color = 'w';
+									chessboard[i][j].type = 'p';
+								}
 							}
-							else
+							if (j - 1 >= 0)
 							{
-								chessboard[i - 1][j].color = temp_color;
-								chessboard[i - 1][j].type = temp_type;
-								chessboard[i][j].color = 'w';
-								chessboard[i][j].type = 'p';
+								if (chessboard[i - 1][j - 1].color == 'b')
+								{
+									temp_type = chessboard[i - 1][j].type;
+									temp_color = chessboard[i - 1][j].color;
+									chessboard[i - 1][j - 1].color = 'w';
+									chessboard[i - 1][j - 1].type = 'p';
+									chessboard[i][j].color = ' ';
+									chessboard[i][j].type = ' ';
+									if (!is_white_in_check())
+									{
+										chessboard[i - 1][j - 1].color = temp_color;
+										chessboard[i - 1][j - 1].type = temp_type;
+										chessboard[i][j].color = 'w';
+										chessboard[i][j].type = 'p';
+										return false;
+									}
+									else
+									{
+										chessboard[i - 1][j - 1].color = temp_color;
+										chessboard[i - 1][j - 1].type = temp_type;
+										chessboard[i][j].color = 'w';
+										chessboard[i][j].type = 'p';
+									}
+								}
 							}
-						}
-						if (chessboard[i - 1][j - 1].color == 'b' && j - 1 >= 0)
-						{
-							temp_type = chessboard[i - 1][j].type;
-							temp_color = chessboard[i - 1][j].color;
-							chessboard[i - 1][j - 1].color = 'w';
-							chessboard[i - 1][j - 1].type = 'p';
-							chessboard[i][j].color = ' ';
-							chessboard[i][j].type = ' ';
-							if (!is_white_in_check())
+							if (j + 1 < 8)
 							{
-								chessboard[i - 1][j - 1].color = temp_color;
-								chessboard[i - 1][j - 1].type = temp_type;
-								chessboard[i][j].color = 'w';
-								chessboard[i][j].type = 'p';
-								return false;
-							}
-							else
-							{
-								chessboard[i - 1][j - 1].color = temp_color;
-								chessboard[i - 1][j - 1].type = temp_type;
-								chessboard[i][j].color = 'w';
-								chessboard[i][j].type = 'p';
-							}
-						}
-						if (chessboard[i - 1][j + 1].color == 'b' && j + 1 < 8)
-						{
-							temp_type = chessboard[i - 1][j + 1].type;
-							temp_color = chessboard[i - 1][j + 1].color;
-							chessboard[i - 1][j + 1].color = 'w';
-							chessboard[i - 1][j + 1].type = 'p';
-							chessboard[i][j].color = ' ';
-							chessboard[i][j].type = ' ';
-							if (!is_white_in_check())
-							{
-								chessboard[i - 1][j + 1].color = temp_color;
-								chessboard[i - 1][j + 1].type = temp_type;
-								chessboard[i][j].color = 'w';
-								chessboard[i][j].type = 'p';
-								return false;
-							}
-							else
-							{
-								chessboard[i - 1][j + 1].color = temp_color;
-								chessboard[i - 1][j + 1].type = temp_type;
-								chessboard[i][j].color = 'w';
-								chessboard[i][j].type = 'p';
+								if (chessboard[i - 1][j + 1].color == 'b')
+								{
+									temp_type = chessboard[i - 1][j + 1].type;
+									temp_color = chessboard[i - 1][j + 1].color;
+									chessboard[i - 1][j + 1].color = 'w';
+									chessboard[i - 1][j + 1].type = 'p';
+									chessboard[i][j].color = ' ';
+									chessboard[i][j].type = ' ';
+									if (!is_white_in_check())
+									{
+										chessboard[i - 1][j + 1].color = temp_color;
+										chessboard[i - 1][j + 1].type = temp_type;
+										chessboard[i][j].color = 'w';
+										chessboard[i][j].type = 'p';
+										return false;
+									}
+									else
+									{
+										chessboard[i - 1][j + 1].color = temp_color;
+										chessboard[i - 1][j + 1].type = temp_type;
+										chessboard[i][j].color = 'w';
+										chessboard[i][j].type = 'p';
+									}
+								}
 							}
 						}
 					}
@@ -1443,7 +1453,7 @@ bool Board::is_white_in_checkmate()
 						}
 						for (int temp_i = 1; temp_i < 8; temp_i++)
 						{
-							if (i + temp_i < 8 && j - temp_i >= 0)
+							if (i + temp_i < 8 && j - temp_i >= 0 && j + temp_i < 8)
 							{
 								temp_color = chessboard[i + temp_i][j - temp_i].color;
 								temp_type = chessboard[i + temp_i][j - temp_i].type;
@@ -1474,7 +1484,7 @@ bool Board::is_white_in_checkmate()
 						}
 						for (int temp_i = 1; temp_i < 8; temp_i++)
 						{
-							if (i - temp_i >= 0 && j + temp_i < 8)
+							if (i - temp_i >= 0 && j + temp_i < 8 && i + temp_i < 8)
 							{
 								temp_color = chessboard[i - temp_i][j + temp_i].color;
 								temp_type = chessboard[i - temp_i][j + temp_i].type;
@@ -1505,7 +1515,7 @@ bool Board::is_white_in_checkmate()
 						}
 						for (int temp_i = 1; temp_i < 8; temp_i++)
 						{
-							if (i - temp_i >= 0 && j - temp_i >= 0)
+							if (i - temp_i >= 0 && j - temp_i >= 0 && j + temp_i < 8)
 							{
 								temp_color = chessboard[i - temp_i][j - temp_i].color;
 								temp_type = chessboard[i - temp_i][j - temp_i].type;
@@ -2394,80 +2404,87 @@ bool Board::is_black_in_checkmate()
 			{
 				if (chessboard[i][j].color == 'b')
 				{
-					if (chessboard[i][j].type == 'p' && i + 1 < 8) //checking possible moves of pawns 
+					if(i+1<8)
 					{
-						if (chessboard[i + 1][j].type == ' ')
+						if (chessboard[i][j].type == 'p') //checking possible moves of pawns 
 						{
-							temp_type = chessboard[i + 1][j].type;
-							temp_color = chessboard[i + 1][j].color;
-							chessboard[i +1][j].color = 'b';
-							chessboard[i + 1][j].type = 'p';
-							chessboard[i][j].color = ' ';
-							chessboard[i][j].type = ' ';
-							if (!is_black_in_check())
+							if (chessboard[i + 1][j].type == ' ')
 							{
-								chessboard[i + 1][j].color = temp_color;
-								chessboard[i + 1][j].type = temp_type;
-								chessboard[i][j].color = 'b';
-								chessboard[i][j].type = 'p';
-								return false;
+								temp_type = chessboard[i + 1][j].type;
+								temp_color = chessboard[i + 1][j].color;
+								chessboard[i + 1][j].color = 'b';
+								chessboard[i + 1][j].type = 'p';
+								chessboard[i][j].color = ' ';
+								chessboard[i][j].type = ' ';
+								if (!is_black_in_check())
+								{
+									chessboard[i + 1][j].color = temp_color;
+									chessboard[i + 1][j].type = temp_type;
+									chessboard[i][j].color = 'b';
+									chessboard[i][j].type = 'p';
+									return false;
+								}
+								else
+								{
+									chessboard[i + 1][j].color = temp_color;
+									chessboard[i + 1][j].type = temp_type;
+									chessboard[i][j].color = 'b';
+									chessboard[i][j].type = 'p';
+								}
 							}
-							else
+							if (j - 1 >= 0)
 							{
-								chessboard[i + 1][j].color = temp_color;
-								chessboard[i + 1][j].type = temp_type;
-								chessboard[i][j].color = 'b';
-								chessboard[i][j].type = 'p';
+								if (chessboard[i + 1][j - 1].color == 'w')
+								{
+									temp_type = chessboard[i - 1][j].type;
+									temp_color = chessboard[i - 1][j].color;
+									chessboard[i + 1][j - 1].color = 'b';
+									chessboard[i + 1][j - 1].type = 'p';
+									chessboard[i][j].color = ' ';
+									chessboard[i][j].type = ' ';
+									if (!is_black_in_check())
+									{
+										chessboard[i + 1][j - 1].color = temp_color;
+										chessboard[i + 1][j - 1].type = temp_type;
+										chessboard[i][j].color = 'b';
+										chessboard[i][j].type = 'p';
+										return false;
+									}
+									else
+									{
+										chessboard[i + 1][j - 1].color = temp_color;
+										chessboard[i + 1][j - 1].type = temp_type;
+										chessboard[i][j].color = 'b';
+										chessboard[i][j].type = 'p';
+									}
+								}
 							}
-						}
-
-						if (chessboard[i - 1][j - 1].color == 'w' && j - 1 >= 0)
-						{
-							temp_type = chessboard[i - 1][j].type;
-							temp_color = chessboard[i - 1][j].color;
-							chessboard[i + 1][j - 1].color = 'b';
-							chessboard[i + 1][j - 1].type = 'p';
-							chessboard[i][j].color = ' ';
-							chessboard[i][j].type = ' ';
-							if (!is_black_in_check())
+							if (j + 1 < 8)
 							{
-								chessboard[i + 1][j - 1].color = temp_color;
-								chessboard[i +1][j - 1].type = temp_type;
-								chessboard[i][j].color = 'b';
-								chessboard[i][j].type = 'p';
-								return false;
-							}
-							else
-							{
-								chessboard[i + 1][j - 1].color = temp_color;
-								chessboard[i + 1][j - 1].type = temp_type;
-								chessboard[i][j].color = 'b';
-								chessboard[i][j].type = 'p';
-							}
-						}
-
-						if (chessboard[i - 1][j + 1].color == 'w' && j + 1 < 8)
-						{
-							temp_type = chessboard[i + 1][j + 1].type;
-							temp_color = chessboard[i + 1][j + 1].color;
-							chessboard[i + 1][j + 1].color = 'b';
-							chessboard[i + 1][j + 1].type = 'p';
-							chessboard[i][j].color = ' ';
-							chessboard[i][j].type = ' ';
-							if (!is_black_in_check())
-							{
-								chessboard[i + 1][j + 1].color = temp_color;
-								chessboard[i + 1][j + 1].type = temp_type;
-								chessboard[i][j].color = 'b';
-								chessboard[i][j].type = 'p';
-								return false;
-							}
-							else
-							{
-								chessboard[i + 1][j + 1].color = temp_color;
-								chessboard[i + 1][j + 1].type = temp_type;
-								chessboard[i][j].color = 'b';
-								chessboard[i][j].type = 'p';
+								if (chessboard[i + 1][j + 1].color == 'w')
+								{
+									temp_type = chessboard[i + 1][j + 1].type;
+									temp_color = chessboard[i + 1][j + 1].color;
+									chessboard[i + 1][j + 1].color = 'b';
+									chessboard[i + 1][j + 1].type = 'p';
+									chessboard[i][j].color = ' ';
+									chessboard[i][j].type = ' ';
+									if (!is_black_in_check())
+									{
+										chessboard[i + 1][j + 1].color = temp_color;
+										chessboard[i + 1][j + 1].type = temp_type;
+										chessboard[i][j].color = 'b';
+										chessboard[i][j].type = 'p';
+										return false;
+									}
+									else
+									{
+										chessboard[i + 1][j + 1].color = temp_color;
+										chessboard[i + 1][j + 1].type = temp_type;
+										chessboard[i][j].color = 'b';
+										chessboard[i][j].type = 'p';
+									}
+								}
 							}
 						}
 					}
@@ -2508,7 +2525,7 @@ bool Board::is_black_in_checkmate()
 
 						for (int temp_i = 1; temp_i < 8; temp_i++)
 						{
-							if (i + temp_i < 8 && j - temp_i >= 0)
+							if (i + temp_i < 8 && j - temp_i >= 0 && j + temp_i < 8)
 							{
 								temp_color = chessboard[i + temp_i][j - temp_i].color;
 								temp_type = chessboard[i + temp_i][j - temp_i].type;
@@ -2540,7 +2557,7 @@ bool Board::is_black_in_checkmate()
 
 						for (int temp_i = 1; temp_i < 8; temp_i++)
 						{
-							if (i - temp_i >= 0 && j + temp_i < 8)
+							if (i - temp_i >= 0 && j + temp_i < 8 && i + temp_i <8)
 							{
 								temp_color = chessboard[i - temp_i][j + temp_i].color;
 								temp_type = chessboard[i - temp_i][j + temp_i].type;
@@ -2572,7 +2589,7 @@ bool Board::is_black_in_checkmate()
 
 						for (int temp_i = 1; temp_i < 8; temp_i++)
 						{
-							if (i - temp_i >= 0 && j - temp_i >= 0)
+							if (i - temp_i >= 0 && j - temp_i >= 0 && i+temp_i < 8 && j + temp_i < 8 )
 							{
 								temp_color = chessboard[i - temp_i][j - temp_i].color;
 								temp_type = chessboard[i - temp_i][j - temp_i].type;
