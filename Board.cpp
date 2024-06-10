@@ -1325,54 +1325,72 @@ bool Board::is_white_in_checkmate()
 						{
 							temp_type = chessboard[i - 1][j].type;
 							temp_color = chessboard[i - 1][j].color;
-							chessboard[i - 1][j].set('w', 'p', not_selected, true);
-							chessboard[i][j].set(' ', ' ', not_selected, true);
+							chessboard[i - 1][j].color = 'w';
+							chessboard[i - 1][j].type = 'p';
+							chessboard[i][j].color = ' ';
+							chessboard[i][j].type = ' ';
 							if (!is_white_in_check())
 							{
-								chessboard[i - 1][j].set(temp_color, temp_type, not_selected, false);
-								chessboard[i][j].set('w', 'p', not_selected, true);
+								chessboard[i - 1][j].color = temp_color;
+								chessboard[i - 1][j].type = temp_type;
+								chessboard[i][j].color = 'w';
+								chessboard[i][j].type = 'p';
 								return false;
 							}
 							else
 							{
-								chessboard[i - 1][j].set(temp_color, temp_type, not_selected, false);
-								chessboard[i][j].set('w', 'p', not_selected, true);
+								chessboard[i - 1][j].color = temp_color;
+								chessboard[i - 1][j].type = temp_type;
+								chessboard[i][j].color = 'w';
+								chessboard[i][j].type = 'p';
 							}
 						}
 						if (chessboard[i - 1][j - 1].color == 'b' && j - 1 >= 0)
 						{
-							temp_type = chessboard[i - 1][j - 1].type;
-							temp_color = chessboard[i - 1][j - 1].color;
-							chessboard[i - 1][j - 1].set('w', 'p', not_selected, true);
-							chessboard[i][j].set(' ', ' ', not_selected, true);
+							temp_type = chessboard[i - 1][j].type;
+							temp_color = chessboard[i - 1][j].color;
+							chessboard[i - 1][j - 1].color = 'w';
+							chessboard[i - 1][j - 1].type = 'p';
+							chessboard[i][j].color = ' ';
+							chessboard[i][j].type = ' ';
 							if (!is_white_in_check())
 							{
-								chessboard[i - 1][j - 1].set(temp_color, temp_type, not_selected, false);
-								chessboard[i][j].set('w', 'p', not_selected, true);
+								chessboard[i - 1][j - 1].color = temp_color;
+								chessboard[i - 1][j - 1].type = temp_type;
+								chessboard[i][j].color = 'w';
+								chessboard[i][j].type = 'p';
 								return false;
 							}
 							else
 							{
-								chessboard[i - 1][j - 1].set(temp_color, temp_type, not_selected, false);
-								chessboard[i][j].set('w', 'p', not_selected, true);
+								chessboard[i - 1][j - 1].color = temp_color;
+								chessboard[i - 1][j - 1].type = temp_type;
+								chessboard[i][j].color = 'w';
+								chessboard[i][j].type = 'p';
 							}
 						}
 						if (chessboard[i - 1][j + 1].color == 'b' && j + 1 < 8)
 						{
 							temp_type = chessboard[i - 1][j + 1].type;
 							temp_color = chessboard[i - 1][j + 1].color;
-							chessboard[i - 1][j + 1].set('w', 'p', not_selected, true);
-							chessboard[i][j].set(' ', ' ', not_selected, true);
+							chessboard[i - 1][j + 1].color = 'w';
+							chessboard[i - 1][j + 1].type = 'p';
+							chessboard[i][j].color = ' ';
+							chessboard[i][j].type = ' ';
 							if (!is_white_in_check())
 							{
-								chessboard[i - 1][j + 1].set(temp_color, temp_type, not_selected, false);
-								chessboard[i][j].set('w', 'p', not_selected, true);
+								chessboard[i - 1][j + 1].color = temp_color;
+								chessboard[i - 1][j + 1].type = temp_type;
+								chessboard[i][j].color = 'w';
+								chessboard[i][j].type = 'p';
 								return false;
 							}
 							else
 							{
-								chessboard[i - 1][j + 1].set(temp_color, temp_type, not_selected, false);
-								chessboard[i][j].set('w', 'p', not_selected, true);
+								chessboard[i - 1][j + 1].color = temp_color;
+								chessboard[i - 1][j + 1].type = temp_type;
+								chessboard[i][j].color = 'w';
+								chessboard[i][j].type = 'p';
 							}
 						}
 					}
@@ -1388,18 +1406,24 @@ bool Board::is_white_in_checkmate()
 								if (chessboard[i + temp_i][j + temp_i].color == 'w') break;
 								else
 								{
-									chessboard[i + temp_i][j + temp_i].set('w', 'b', not_selected, true);
-									chessboard[i][j].set(' ', ' ', not_selected, true);
+									chessboard[i + temp_i][j + temp_i].color = 'w';
+									chessboard[i + temp_i][j + temp_i].type = 'b';
+									chessboard[i][j].color = ' ';
+									chessboard[i][j].type = ' ';
 									if (!is_white_in_check())
 									{
-										chessboard[i + temp_i][j + temp_i].set(temp_color, temp_type, not_selected, true);
-										chessboard[i][j].set('w', 'b', not_selected, true);
+										chessboard[i + temp_i][j + temp_i].color = temp_color;
+										chessboard[i + temp_i][j + temp_i].type = temp_type;
+										chessboard[i][j].color = 'w';
+										chessboard[i][j].type = 'b';
 										return false;
 									}
 									else
 									{
-										chessboard[i + temp_i][j + temp_i].set(temp_color, temp_type, not_selected, true);
-										chessboard[i][j].set('w', 'b', not_selected, true);
+										chessboard[i + temp_i][j + temp_i].color = temp_color;
+										chessboard[i + temp_i][j + temp_i].type = temp_type;
+										chessboard[i][j].color = 'w';
+										chessboard[i][j].type = 'b';
 									}
 								}
 							}
@@ -1413,18 +1437,24 @@ bool Board::is_white_in_checkmate()
 								if (chessboard[i + temp_i][j - temp_i].color == 'w') break;
 								else
 								{
-									chessboard[i + temp_i][j - temp_i].set('w', 'b', not_selected, true);
-									chessboard[i][j].set(' ', ' ', not_selected, true);
+									chessboard[i + temp_i][j + temp_i].color = 'w';
+									chessboard[i + temp_i][j + temp_i].type = 'b';
+									chessboard[i][j].color = ' ';
+									chessboard[i][j].type = ' ';
 									if (!is_white_in_check())
 									{
-										chessboard[i + temp_i][j - temp_i].set(temp_color, temp_type, not_selected, true);
-										chessboard[i][j].set('w', 'b', not_selected, true);
+										chessboard[i + temp_i][j - temp_i].color = temp_color;
+										chessboard[i + temp_i][j - temp_i].type = temp_type;
+										chessboard[i][j].color = 'w';
+										chessboard[i][j].type = 'b';
 										return false;
 									}
 									else
 									{
-										chessboard[i + temp_i][j - temp_i].set(temp_color, temp_type, not_selected, true);
-										chessboard[i][j].set('w', 'b', not_selected, true);
+										chessboard[i + temp_i][j - temp_i].color = temp_color;
+										chessboard[i + temp_i][j - temp_i].type = temp_type;
+										chessboard[i][j].color = 'w';
+										chessboard[i][j].type = 'b';
 									}
 								}
 							}
@@ -1438,18 +1468,24 @@ bool Board::is_white_in_checkmate()
 								if (chessboard[i - temp_i][j + temp_i].color == 'w') break;
 								else
 								{
-									chessboard[i - temp_i][j + temp_i].set('w', 'b', not_selected, true);
-									chessboard[i][j].set(' ', ' ', not_selected, true);
+									chessboard[i + temp_i][j + temp_i].color = 'w';
+									chessboard[i + temp_i][j + temp_i].type = 'b';
+									chessboard[i][j].color = ' ';
+									chessboard[i][j].type = ' ';
 									if (!is_white_in_check())
 									{
-										chessboard[i - temp_i][j + temp_i].set(temp_color, temp_type, not_selected, true);
-										chessboard[i][j].set('w', 'b', not_selected, true);
+										chessboard[i - temp_i][j + temp_i].color = temp_color;
+										chessboard[i - temp_i][j + temp_i].type = temp_type;
+										chessboard[i][j].color = 'w';
+										chessboard[i][j].type = 'b';
 										return false;
 									}
 									else
 									{
-										chessboard[i - temp_i][j + temp_i].set(temp_color, temp_type, not_selected, true);
-										chessboard[i][j].set('w', 'b', not_selected, true);
+										chessboard[i - temp_i][j + temp_i].color = temp_color;
+										chessboard[i - temp_i][j + temp_i].type = temp_type;
+										chessboard[i][j].color = 'w';
+										chessboard[i][j].type = 'b';
 									}
 								}
 							}
@@ -1463,18 +1499,24 @@ bool Board::is_white_in_checkmate()
 								if (chessboard[i - temp_i][j - temp_i].color == 'w') break;
 								else
 								{
-									chessboard[i - temp_i][j - temp_i].set('w', 'b', not_selected, true);
-									chessboard[i][j].set(' ', ' ', not_selected, true);
+									chessboard[i + temp_i][j + temp_i].color = 'w';
+									chessboard[i + temp_i][j + temp_i].type = 'b';
+									chessboard[i][j].color = ' ';
+									chessboard[i][j].type = ' ';
 									if (!is_white_in_check())
 									{
-										chessboard[i - temp_i][j - temp_i].set(temp_color, temp_type, not_selected, true);
-										chessboard[i][j].set('w', 'b', not_selected, true);
+										chessboard[i - temp_i][j - temp_i].color = temp_color;
+										chessboard[i - temp_i][j - temp_i].type = temp_type;
+										chessboard[i][j].color = 'w';
+										chessboard[i][j].type = 'b';
 										return false;
 									}
 									else
 									{
-										chessboard[i - temp_i][j - temp_i].set(temp_color, temp_type, not_selected, true);
-										chessboard[i][j].set('w', 'b', not_selected, true);
+										chessboard[i - temp_i][j - temp_i].color = temp_color;
+										chessboard[i - temp_i][j - temp_i].type = temp_type;
+										chessboard[i][j].color = 'w';
+										chessboard[i][j].type = 'b';
 									}
 								}
 
@@ -1493,18 +1535,24 @@ bool Board::is_white_in_checkmate()
 								if (chessboard[i + temp_i][j].color == 'w') break;
 								else
 								{
-									chessboard[i + temp_i][j].set('w', 'r', not_selected, true);
-									chessboard[i][j].set(' ', ' ', not_selected, true);
+									chessboard[i + temp_i][j].color = 'w';
+									chessboard[i + temp_i][j].type = 'r';
+									chessboard[i][j].color = ' ';
+									chessboard[i][j].type = ' ';
 									if (!is_white_in_check())
 									{
-										chessboard[i + temp_i][j].set(temp_color, temp_type, not_selected, true);
-										chessboard[i][j].set('w', 'r', not_selected, true);
+										chessboard[i + temp_i][j].color = temp_color;
+										chessboard[i + temp_i][j].type = temp_type;
+										chessboard[i][j].color = 'w';
+										chessboard[i][j].type = 'r';
 										return false;
 									}
 									else
 									{
-										chessboard[i + temp_i][j].set(temp_color, temp_type, not_selected, true);
-										chessboard[i][j].set('w', 'r', not_selected, true);
+										chessboard[i + temp_i][j].color = temp_color;
+										chessboard[i + temp_i][j].type = temp_type;
+										chessboard[i][j].color = 'w';
+										chessboard[i][j].type = 'r';
 									}
 								}
 							}
@@ -1518,18 +1566,24 @@ bool Board::is_white_in_checkmate()
 								if (chessboard[i - temp_i][j].color == 'w') break;
 								else
 								{
-									chessboard[i - temp_i][j].set('w', 'r', not_selected, true);
-									chessboard[i][j].set(' ', ' ', not_selected, true);
+									chessboard[i -temp_i][j].color = 'w';
+									chessboard[i -temp_i][j].type = 'r';
+									chessboard[i][j].color = ' ';
+									chessboard[i][j].type = ' ';
 									if (!is_white_in_check())
 									{
-										chessboard[i - temp_i][j].set(temp_color, temp_type, not_selected, true);
-										chessboard[i][j].set('w', 'r', not_selected, true);
+										chessboard[i - temp_i][j].color = temp_color;
+										chessboard[i - temp_i][j].type = temp_type;
+										chessboard[i][j].color = 'w';
+										chessboard[i][j].type = 'r';
 										return false;
 									}
 									else
 									{
-										chessboard[i - temp_i][j].set(temp_color, temp_type, not_selected, true);
-										chessboard[i][j].set('w', 'r', not_selected, true);
+										chessboard[i - temp_i][j].color = temp_color;
+										chessboard[i - temp_i][j].type = temp_type;
+										chessboard[i][j].color = 'w';
+										chessboard[i][j].type = 'r';
 									}
 								}
 							}
@@ -1543,18 +1597,24 @@ bool Board::is_white_in_checkmate()
 								if (chessboard[i][j + temp_i].color == 'w') break;
 								else
 								{
-									chessboard[i][j + temp_i].set('w', 'r', not_selected, true);
-									chessboard[i][j].set(' ', ' ', not_selected, true);
+									chessboard[i][j + temp_i].color = 'w';
+									chessboard[i][j + temp_i].type = 'r';
+									chessboard[i][j].color = ' ';
+									chessboard[i][j].type = ' ';
 									if (!is_white_in_check())
 									{
-										chessboard[i][j + temp_i].set(temp_color, temp_type, not_selected, true);
-										chessboard[i][j].set('w', 'r', not_selected, true);
+										chessboard[i][j + temp_i].color = temp_color;
+										chessboard[i][j + temp_i].type = temp_type;
+										chessboard[i][j].color = 'w';
+										chessboard[i][j].type = 'r';
 										return false;
 									}
 									else
 									{
-										chessboard[i][j + temp_i].set(temp_color, temp_type, not_selected, true);
-										chessboard[i][j].set('w', 'r', not_selected, true);
+										chessboard[i][j + temp_i].color = temp_color;
+										chessboard[i][j + temp_i].type = temp_type;
+										chessboard[i][j].color = 'w';
+										chessboard[i][j].type = 'r';
 									}
 								}
 							}
@@ -1568,18 +1628,24 @@ bool Board::is_white_in_checkmate()
 								if (chessboard[i][j - temp_i].color == 'w') break;
 								else
 								{
-									chessboard[i][j - temp_i].set('w', 'r', not_selected, true);
-									chessboard[i][j].set(' ', ' ', not_selected, true);
+									chessboard[i][j - temp_i].color = 'w';
+									chessboard[i][j -temp_i].type = 'r';
+									chessboard[i][j].color = ' ';
+									chessboard[i][j].type = ' ';
 									if (!is_white_in_check())
 									{
-										chessboard[i][j - temp_i].set(temp_color, temp_type, not_selected, true);
-										chessboard[i][j].set('w', 'r', not_selected, true);
+										chessboard[i][j - temp_i].color = temp_color;
+										chessboard[i][j - temp_i].type = temp_type;
+										chessboard[i][j].color = 'w';
+										chessboard[i][j].type = 'r';
 										return false;
 									}
 									else
 									{
-										chessboard[i][j - temp_i].set(temp_color, temp_type, not_selected, true);
-										chessboard[i][j].set('w', 'r', not_selected, true);
+										chessboard[i][j - temp_i].color = temp_color;
+										chessboard[i][j - temp_i].type = temp_type;
+										chessboard[i][j].color = 'w';
+										chessboard[i][j].type = 'r';
 									}
 								}
 							}
@@ -1600,18 +1666,24 @@ bool Board::is_white_in_checkmate()
 								if (chessboard[i + temp_i][j + temp_i].color == 'w') break;
 								else
 								{
-									chessboard[i + temp_i][j + temp_i].set('w', 'q', not_selected, true);
-									chessboard[i][j].set(' ', ' ', not_selected, true);
+									chessboard[i + temp_i][j + temp_i].color = 'w';
+									chessboard[i + temp_i][j + temp_i].type = 'q';
+									chessboard[i][j].color = ' ';
+									chessboard[i][j].type = ' ';
 									if (!is_white_in_check())
 									{
-										chessboard[i + temp_i][j + temp_i].set(temp_color, temp_type, not_selected, true);
-										chessboard[i][j].set('w', 'q', not_selected, true);
+										chessboard[i + temp_i][j + temp_i].color = temp_color;
+										chessboard[i + temp_i][j + temp_i].type = temp_type;
+										chessboard[i][j].color = 'w';
+										chessboard[i][j].type = 'q';
 										return false;
 									}
 									else
 									{
-										chessboard[i + temp_i][j + temp_i].set(temp_color, temp_type, not_selected, true);
-										chessboard[i][j].set('w', 'q', not_selected, true);
+										chessboard[i + temp_i][j + temp_i].color = temp_color;
+										chessboard[i + temp_i][j + temp_i].type = temp_type;
+										chessboard[i][j].color = 'w';
+										chessboard[i][j].type = 'q';
 									}
 								}
 							}
@@ -1625,18 +1697,24 @@ bool Board::is_white_in_checkmate()
 								if (chessboard[i + temp_i][j - temp_i].color == 'w') break;
 								else
 								{
-									chessboard[i + temp_i][j - temp_i].set('w', 'q', not_selected, true);
-									chessboard[i][j].set(' ', ' ', not_selected, true);
+									chessboard[i + temp_i][j - temp_i].color = 'w';
+									chessboard[i + temp_i][j -temp_i].type = 'q';
+									chessboard[i][j].color = ' ';
+									chessboard[i][j].type = ' ';
 									if (!is_white_in_check())
 									{
-										chessboard[i + temp_i][j - temp_i].set(temp_color, temp_type, not_selected, true);
-										chessboard[i][j].set('w', 'q', not_selected, true);
+										chessboard[i + temp_i][j - temp_i].color = temp_color;
+										chessboard[i + temp_i][j - temp_i].type = temp_type;
+										chessboard[i][j].color = 'w';
+										chessboard[i][j].type = 'q';
 										return false;
 									}
 									else
 									{
-										chessboard[i + temp_i][j - temp_i].set(temp_color, temp_type, not_selected, true);
-										chessboard[i][j].set('w', 'q', not_selected, true);
+										chessboard[i + temp_i][j - temp_i].color = temp_color;
+										chessboard[i + temp_i][j -temp_i].type = temp_type;
+										chessboard[i][j].color = 'w';
+										chessboard[i][j].type = 'q';
 									}
 								}
 							}
@@ -1650,18 +1728,24 @@ bool Board::is_white_in_checkmate()
 								if (chessboard[i - temp_i][j + temp_i].color == 'w') break;
 								else
 								{
-									chessboard[i - temp_i][j + temp_i].set('w', 'q', not_selected, true);
-									chessboard[i][j].set(' ', ' ', not_selected, true);
+									chessboard[i - temp_i][j + temp_i].color = 'w';
+									chessboard[i - temp_i][j + temp_i].type = 'q';
+									chessboard[i][j].color = ' ';
+									chessboard[i][j].type = ' ';
 									if (!is_white_in_check())
 									{
-										chessboard[i - temp_i][j + temp_i].set(temp_color, temp_type, not_selected, true);
-										chessboard[i][j].set('w', 'q', not_selected, true);
+										chessboard[i - temp_i][j + temp_i].color = temp_color;
+										chessboard[i - temp_i][j + temp_i].type = temp_type;
+										chessboard[i][j].color = 'w';
+										chessboard[i][j].type = 'q';
 										return false;
 									}
 									else
 									{
-										chessboard[i - temp_i][j + temp_i].set(temp_color, temp_type, not_selected, true);
-										chessboard[i][j].set('w', 'q', not_selected, true);
+										chessboard[i - temp_i][j + temp_i].color = temp_color;
+										chessboard[i - temp_i][j + temp_i].type = temp_type;
+										chessboard[i][j].color = 'w';
+										chessboard[i][j].type = 'q';
 									}
 								}
 							}
@@ -1675,18 +1759,24 @@ bool Board::is_white_in_checkmate()
 								if (chessboard[i - temp_i][j - temp_i].color == 'w') break;
 								else
 								{
-									chessboard[i - temp_i][j - temp_i].set('w', 'q', not_selected, true);
-									chessboard[i][j].set(' ', ' ', not_selected, true);
+									chessboard[i - temp_i][j - temp_i].color = 'w';
+									chessboard[i - temp_i][j -temp_i].type = 'q';
+									chessboard[i][j].color = ' ';
+									chessboard[i][j].type = ' ';
 									if (!is_white_in_check())
 									{
-										chessboard[i - temp_i][j - temp_i].set(temp_color, temp_type, not_selected, true);
-										chessboard[i][j].set('w', 'q', not_selected, true);
+										chessboard[i - temp_i][j - temp_i].color = temp_color;
+										chessboard[i - temp_i][j -temp_i].type = temp_type;
+										chessboard[i][j].color = 'w';
+										chessboard[i][j].type = 'q';
 										return false;
 									}
 									else
 									{
-										chessboard[i - temp_i][j - temp_i].set(temp_color, temp_type, not_selected, true);
-										chessboard[i][j].set('w', 'q', not_selected, true);
+										chessboard[i - temp_i][j - temp_i].color = temp_color;
+										chessboard[i - temp_i][j - temp_i].type = temp_type;
+										chessboard[i][j].color = 'w';
+										chessboard[i][j].type = 'q';
 									}
 								}
 
@@ -1704,18 +1794,24 @@ bool Board::is_white_in_checkmate()
 								if (chessboard[i + temp_i][j].color == 'w') break;
 								else
 								{
-									chessboard[i + temp_i][j].set('w', 'q', not_selected, true);
-									chessboard[i][j].set(' ', ' ', not_selected, true);
+									chessboard[i + temp_i][j].color = 'w';
+									chessboard[i + temp_i][j].type = 'q';
+									chessboard[i][j].color = ' ';
+									chessboard[i][j].type = ' ';
 									if (!is_white_in_check())
 									{
-										chessboard[i + temp_i][j].set(temp_color, temp_type, not_selected, true);
-										chessboard[i][j].set('w', 'q', not_selected, true);
+										chessboard[i + temp_i][j].color = temp_color;
+										chessboard[i + temp_i][j].type = temp_type;
+										chessboard[i][j].color = 'w';
+										chessboard[i][j].type = 'q';
 										return false;
 									}
 									else
 									{
-										chessboard[i + temp_i][j].set(temp_color, temp_type, not_selected, true);
-										chessboard[i][j].set('w', 'q', not_selected, true);
+										chessboard[i + temp_i][j].color = temp_color;
+										chessboard[i + temp_i][j].type = temp_type;
+										chessboard[i][j].color = 'w';
+										chessboard[i][j].type = 'q';
 									}
 								}
 							}
@@ -1729,18 +1825,24 @@ bool Board::is_white_in_checkmate()
 								if (chessboard[i - temp_i][j].color == 'w') break;
 								else
 								{
-									chessboard[i - temp_i][j].set('w', 'q', not_selected, true);
-									chessboard[i][j].set(' ', ' ', not_selected, true);
+									chessboard[i - temp_i][j].color = 'w';
+									chessboard[i - temp_i][j].type = 'q';
+									chessboard[i][j].color = ' ';
+									chessboard[i][j].type = ' ';
 									if (!is_white_in_check())
 									{
-										chessboard[i - temp_i][j].set(temp_color, temp_type, not_selected, true);
-										chessboard[i][j].set('w', 'q', not_selected, true);
+										chessboard[i - temp_i][j].color = temp_color;
+										chessboard[i -temp_i][j].type = temp_type;
+										chessboard[i][j].color = 'w';
+										chessboard[i][j].type = 'q';
 										return false;
 									}
 									else
 									{
-										chessboard[i - temp_i][j].set(temp_color, temp_type, not_selected, true);
-										chessboard[i][j].set('w', 'q', not_selected, true);
+										chessboard[i - temp_i][j].color = temp_color;
+										chessboard[i - temp_i][j].type = temp_type;
+										chessboard[i][j].color = 'w';
+										chessboard[i][j].type = 'q';
 									}
 								}
 							}
@@ -1754,18 +1856,24 @@ bool Board::is_white_in_checkmate()
 								if (chessboard[i][j + temp_i].color == 'w') break;
 								else
 								{
-									chessboard[i][j + temp_i].set('w', 'q', not_selected, true);
-									chessboard[i][j].set(' ', ' ', not_selected, true);
+									chessboard[i][j + temp_i].color = 'w';
+									chessboard[i][j + temp_i].type = 'q';
+									chessboard[i][j].color = ' ';
+									chessboard[i][j].type = ' ';
 									if (!is_white_in_check())
 									{
-										chessboard[i][j + temp_i].set(temp_color, temp_type, not_selected, true);
-										chessboard[i][j].set('w', 'q', not_selected, true);
+										chessboard[i][j + temp_i].color = temp_color;
+										chessboard[i][j + temp_i].type = temp_type;
+										chessboard[i][j].color = 'w';
+										chessboard[i][j].type = 'q';
 										return false;
 									}
 									else
 									{
-										chessboard[i][j + temp_i].set(temp_color, temp_type, not_selected, true);
-										chessboard[i][j].set('w', 'q', not_selected, true);
+										chessboard[i][j + temp_i].color = temp_color;
+										chessboard[i][j + temp_i].type = temp_type;
+										chessboard[i][j].color = 'w';
+										chessboard[i][j].type = 'q';
 									}
 								}
 							}
@@ -1779,18 +1887,24 @@ bool Board::is_white_in_checkmate()
 								if (chessboard[i][j - temp_i].color == 'w') break;
 								else
 								{
-									chessboard[i][j - temp_i].set('w', 'q', not_selected, true);
-									chessboard[i][j].set(' ', ' ', not_selected, true);
+									chessboard[i][j - temp_i].color = 'w';
+									chessboard[i][j - temp_i].type = 'q';
+									chessboard[i][j].color = ' ';
+									chessboard[i][j].type = ' ';
 									if (!is_white_in_check())
 									{
-										chessboard[i][j - temp_i].set(temp_color, temp_type, not_selected, true);
-										chessboard[i][j].set('w', 'q', not_selected, true);
+										chessboard[i][j - temp_i].color = temp_color;
+										chessboard[i][j - temp_i].type = temp_type;
+										chessboard[i][j].color = 'w';
+										chessboard[i][j].type = 'q';
 										return false;
 									}
 									else
 									{
-										chessboard[i][j - temp_i].set(temp_color, temp_type, not_selected, true);
-										chessboard[i][j].set('w', 'q', not_selected, true);
+										chessboard[i][j - temp_i].color = temp_color;
+										chessboard[i][j - temp_i].type = temp_type;
+										chessboard[i][j].color = 'w';
+										chessboard[i][j].type = 'q';
 									}
 								}
 							}
@@ -1799,170 +1913,222 @@ bool Board::is_white_in_checkmate()
 
 					if (chessboard[i][j].type == 'k')
 					{
+
 						if (i - 1 >= 0)
 						{
 							temp_color = chessboard[i - 1][j].color;
 							temp_type = chessboard[i - 1][j].type;
 							if (chessboard[i - 1][j].color != 'w')
 							{
-								chessboard[i - 1][j].set('w', 'k', not_selected, true);
-								chessboard[i][j].set(' ', ' ', not_selected, true);
+								chessboard[i - 1][j].color = 'w';
+								chessboard[i - 1][j].type = 'k';
+								chessboard[i][j].color = ' ';
+								chessboard[i][j].type = ' ';
 								if (!is_white_in_check())
 								{
-									chessboard[i - 1][j].set(temp_color, temp_type, not_selected, true);
-									chessboard[i][j].set('w', 'k', not_selected, true);
+									chessboard[i - 1][j].color = temp_color;
+									chessboard[i - 1][j].type = temp_type;
+									chessboard[i][j].color = 'w';
+									chessboard[i][j].type = 'k';
 									return false;
 								}
 								else
 								{
-									chessboard[i - 1][j].set(temp_color, temp_type, not_selected, true);
-									chessboard[i][j].set('w', 'k', not_selected, true);
+									chessboard[i - 1][j].color = temp_color;
+									chessboard[i - 1][j].type = temp_type;
+									chessboard[i][j].color = 'w';
+									chessboard[i][j].type = 'k';
 								}
 							}
 							if (j - 1 >= 0)
 							{
-								temp_color = chessboard[i - 1][j - 1].color;
-								temp_type = chessboard[i - 1][j - 1].type;
-								if (chessboard[i - 1][j - 1].color != 'w')
+								temp_color = chessboard[i - 1][j-1].color;
+								temp_type = chessboard[i - 1][j-1].type;
+								if (chessboard[i - 1][j-1].color != 'w')
 								{
-									chessboard[i - 1][j - 1].set('w', 'k', not_selected, true);
-									chessboard[i][j].set(' ', ' ', not_selected, true);
+									chessboard[i - 1][j-1].color = 'w';
+									chessboard[i - 1][j-1].type = 'k';
+									chessboard[i][j].color = ' ';
+									chessboard[i][j].type = ' ';
 									if (!is_white_in_check())
 									{
-										chessboard[i - 1][j - 1].set(temp_color, temp_type, not_selected, true);
-										chessboard[i][j].set('w', 'k', not_selected, true);
+										chessboard[i - 1][j-1].color = temp_color;
+										chessboard[i - 1][j-1].type = temp_type;
+										chessboard[i][j].color = 'w';
+										chessboard[i][j].type = 'k';
 										return false;
 									}
 									else
 									{
-										chessboard[i - 1][j - 1].set(temp_color, temp_type, not_selected, true);
-										chessboard[i][j].set('w', 'k', not_selected, true);
+										chessboard[i - 1][j-1].color = temp_color;
+										chessboard[i - 1][j-1].type = temp_type;
+										chessboard[i][j].color = 'w';
+										chessboard[i][j].type = 'k';
 									}
 								}
 							}
 						}
+
 						if (i + 1 < 8)
 						{
 							temp_color = chessboard[i + 1][j].color;
 							temp_type = chessboard[i + 1][j].type;
 							if (chessboard[i + 1][j].color != 'w')
 							{
-								chessboard[i + 1][j].set('w', 'k', not_selected, true);
-								chessboard[i][j].set(' ', ' ', not_selected, true);
+								chessboard[i + 1][j].color = 'w';
+								chessboard[i + 1][j].type = 'k';
+								chessboard[i][j].color = ' ';
+								chessboard[i][j].type = ' ';
 								if (!is_white_in_check())
 								{
-									chessboard[i + 1][j].set(temp_color, temp_type, not_selected, true);
-									chessboard[i][j].set('w', 'k', not_selected, true);
+									chessboard[i + 1][j].color = temp_color;
+									chessboard[i +1][j].type = temp_type;
+									chessboard[i][j].color = 'w';
+									chessboard[i][j].type = 'k';
 									return false;
 								}
 								else
 								{
-									chessboard[i + 1][j].set(temp_color, temp_type, not_selected, true);
-									chessboard[i][j].set('w', 'k', not_selected, true);
+									chessboard[i +1][j].color = temp_color;
+									chessboard[i +1][j].type = temp_type;
+									chessboard[i][j].color = 'w';
+									chessboard[i][j].type = 'k';
 								}
 							}
-							if (j + 1 < 8)
-							{
-								temp_color = chessboard[i + 1][j + 1].color;
-								temp_type = chessboard[i + 1][j + 1].type;
-								if (chessboard[i + 1][j + 1].color != 'w')
-								{
-									chessboard[i + 1][j + 1].set('w', 'k', not_selected, true);
-									chessboard[i][j].set(' ', ' ', not_selected, true);
-									if (!is_white_in_check())
-									{
-										chessboard[i + 1][j + 1].set(temp_color, temp_type, not_selected, true);
-										chessboard[i][j].set('w', 'k', not_selected, true);
-										return false;
-									}
-									else
-									{
-										chessboard[i + 1][j + 1].set(temp_color, temp_type, not_selected, true);
-										chessboard[i][j].set('w', 'k', not_selected, true);
-									}
-								}
-							}
-						}
-						if (j - 1 >= 0)
-						{
-							temp_color = chessboard[i][j - 1].color;
-							temp_type = chessboard[i][j - 1].type;
-							if (chessboard[i][j-1].color != 'w')
-							{
-								chessboard[i][j-1].set('w', 'k', not_selected, true);
-								chessboard[i][j].set(' ', ' ', not_selected, true);
-								if (!is_white_in_check())
-								{
-									chessboard[i][j-1].set(temp_color, temp_type, not_selected, true);
-									chessboard[i][j].set('w', 'k', not_selected, true);
-									return false;
-								}
-								else
-								{
-									chessboard[i][j - 1].set(temp_color, temp_type, not_selected, true);
-									chessboard[i][j].set('w', 'k', not_selected, true);
-								}
-							}
-							if (i + 1 < 8)
+							if (j - 1 >= 0)
 							{
 								temp_color = chessboard[i + 1][j - 1].color;
 								temp_type = chessboard[i + 1][j - 1].type;
-								if (chessboard[i + 1][j - 1].color != 'w')
+								if (chessboard[i +1][j - 1].color != 'w')
 								{
-									chessboard[i + 1][j - 1].set('w', 'k', not_selected, true);
-									chessboard[i][j].set(' ', ' ', not_selected, true);
+									chessboard[i + 1][j - 1].color = 'w';
+									chessboard[i + 1][j - 1].type = 'k';
+									chessboard[i][j].color = ' ';
+									chessboard[i][j].type = ' ';
 									if (!is_white_in_check())
 									{
-										chessboard[i + 1][j - 1].set(temp_color, temp_type, not_selected, true);
-										chessboard[i][j].set('w', 'k', not_selected, true);
+										chessboard[i + 1][j - 1].color = temp_color;
+										chessboard[i + 1][j - 1].type = temp_type;
+										chessboard[i][j].color = 'w';
+										chessboard[i][j].type = 'k';
 										return false;
 									}
 									else
 									{
-										chessboard[i + 1][j - 1].set(temp_color, temp_type, not_selected, true);
-										chessboard[i][j].set('w', 'k', not_selected, true);
+										chessboard[i + 1][j - 1].color = temp_color;
+										chessboard[i + 1][j - 1].type = temp_type;
+										chessboard[i][j].color = 'w';
+										chessboard[i][j].type = 'k';
 									}
 								}
 							}
 						}
+
+						if (j - 1 >= 0)
+						{
+							temp_color = chessboard[i][j-1].color;
+							temp_type = chessboard[i][j-1].type;
+							if (chessboard[i][j-1].color != 'w')
+							{
+								chessboard[i][j-1].color = 'w';
+								chessboard[i][j-1].type = 'k';
+								chessboard[i][j].color = ' ';
+								chessboard[i][j].type = ' ';
+								if (!is_white_in_check())
+								{
+									chessboard[i][j-1].color = temp_color;
+									chessboard[i][j-1].type = temp_type;
+									chessboard[i][j].color = 'w';
+									chessboard[i][j].type = 'k';
+									return false;
+								}
+								else
+								{
+									chessboard[i][j-1].color = temp_color;
+									chessboard[i][j-1].type = temp_type;
+									chessboard[i][j].color = 'w';
+									chessboard[i][j].type = 'k';
+								}
+							}
+							if (i - 1 >= 0)
+							{
+								temp_color = chessboard[i - 1][j - 1].color;
+								temp_type = chessboard[i - 1][j - 1].type;
+								if (chessboard[i - 1][j - 1].color != 'w')
+								{
+									chessboard[i - 1][j - 1].color = 'w';
+									chessboard[i - 1][j - 1].type = 'k';
+									chessboard[i][j].color = ' ';
+									chessboard[i][j].type = ' ';
+									if (!is_white_in_check())
+									{
+										chessboard[i - 1][j - 1].color = temp_color;
+										chessboard[i - 1][j - 1].type = temp_type;
+										chessboard[i][j].color = 'w';
+										chessboard[i][j].type = 'k';
+										return false;
+									}
+									else
+									{
+										chessboard[i - 1][j - 1].color = temp_color;
+										chessboard[i - 1][j - 1].type = temp_type;
+										chessboard[i][j].color = 'w';
+										chessboard[i][j].type = 'k';
+									}
+								}
+							}
+						}
+
 						if (j + 1 < 8)
 						{
 							temp_color = chessboard[i][j + 1].color;
 							temp_type = chessboard[i][j + 1].type;
 							if (chessboard[i][j + 1].color != 'w')
 							{
-								chessboard[i][j + 1].set('w', 'k', not_selected, true);
-								chessboard[i][j].set(' ', ' ', not_selected, true);
+								chessboard[i][j + 1].color = 'w';
+								chessboard[i][j + 1].type = 'k';
+								chessboard[i][j].color = ' ';
+								chessboard[i][j].type = ' ';
 								if (!is_white_in_check())
 								{
-									chessboard[i][j + 1].set(temp_color, temp_type, not_selected, true);
-									chessboard[i][j].set('w', 'k', not_selected, true);
+									chessboard[i][j + 1].color = temp_color;
+									chessboard[i][j + 1].type = temp_type;
+									chessboard[i][j].color = 'w';
+									chessboard[i][j].type = 'k';
 									return false;
 								}
 								else
 								{
-									chessboard[i][j + 1].set(temp_color, temp_type, not_selected, true);
-									chessboard[i][j].set('w', 'k', not_selected, true);
+									chessboard[i][j + 1].color = temp_color;
+									chessboard[i][j + 1].type = temp_type;
+									chessboard[i][j].color = 'w';
+									chessboard[i][j].type = 'k';
 								}
 							}
 							if (i - 1 >= 0)
 							{
 								temp_color = chessboard[i-1][j + 1].color;
 								temp_type = chessboard[i-1][j + 1].type;
-								if (chessboard[i - 1][j + 1].color != 'w')
+								if (chessboard[i-1][j + 1].color != 'w')
 								{
-									chessboard[i - 1][j + 1].set('w', 'k', not_selected, true);
-									chessboard[i][j].set(' ', ' ', not_selected, true);
+									chessboard[i-1][j + 1].color = 'w';
+									chessboard[i-1][j + 1].type = 'k';
+									chessboard[i][j].color = ' ';
+									chessboard[i][j].type = ' ';
 									if (!is_white_in_check())
 									{
-										chessboard[i - 1][j + 1].set(temp_color, temp_type, not_selected, true);
-										chessboard[i][j].set('w', 'k', not_selected, true);
+										chessboard[i-1][j + 1].color = temp_color;
+										chessboard[i-1][j + 1].type = temp_type;
+										chessboard[i][j].color = 'w';
+										chessboard[i][j].type = 'k';
 										return false;
 									}
 									else
 									{
-										chessboard[i - 1][j + 1].set(temp_color, temp_type, not_selected, true);
-										chessboard[i][j].set('w', 'k', not_selected, true);
+										chessboard[i-1][j + 1].color = temp_color;
+										chessboard[i-1][j + 1].type = temp_type;
+										chessboard[i][j].color = 'w';
+										chessboard[i][j].type = 'k';
 									}
 								}
 							}
@@ -1971,108 +2137,143 @@ bool Board::is_white_in_checkmate()
 
 					if (chessboard[i][j].type == 'n')
 					{
+
 						if (i - 2 >= 0 && j - 1 >= 0)
 						{
 							temp_color = chessboard[i - 2][j - 1].color;
 							temp_type = chessboard[i - 2][j - 1].type;
 							if (chessboard[i - 2][j - 1].color != 'w')
 							{
-								chessboard[i - 2][j - 1].set('w', 'n', not_selected, true);
-								chessboard[i][j].set('w', 'n', not_selected, true);
+								chessboard[i - 2][j - 1].color = 'w';
+								chessboard[i - 2][j - 1].type = 'n';
+								chessboard[i][j].color = ' ';
+								chessboard[i][j].type = ' ';
 								if (!is_white_in_check())
 								{
-									chessboard[i - 2][j - 1].set(temp_color, temp_type, not_selected, true);
-									chessboard[i][j].set('w', 'n', not_selected, true);
+									chessboard[i - 2][j - 1].color = temp_color;
+									chessboard[i - 1][j - 1].type = temp_type;
+									chessboard[i][j].color = 'w';
+									chessboard[i][j].type = 'n';
 									return false;
 								}
 								else
 								{
-									chessboard[i - 2][j - 1].set(temp_color, temp_type, not_selected, true);
-									chessboard[i][j].set('w', 'n', not_selected, true);
+									chessboard[i - 2][j - 1].color = temp_color;
+									chessboard[i - 2][j - 1].type = temp_type;
+									chessboard[i][j].color = 'w';
+									chessboard[i][j].type = 'n';
 								}
 							}
 						}
+
 						if (i - 2 >= 0 && j + 1 < 8)
 						{
 							temp_color = chessboard[i - 2][j + 1].color;
 							temp_type = chessboard[i - 2][j + 1].type;
 							if (chessboard[i - 2][j + 1].color != 'w')
 							{
-								chessboard[i - 2][j + 1].set('w', 'n', not_selected, true);
-								chessboard[i][j].set('w', 'n', not_selected, true);
+								chessboard[i - 2][j + 1].color = 'w';
+								chessboard[i - 2][j + 1].type = 'n';
+								chessboard[i][j].color = ' ';
+								chessboard[i][j].type = ' ';
 								if (!is_white_in_check())
 								{
-									chessboard[i - 2][j + 1].set(temp_color, temp_type, not_selected, true);
-									chessboard[i][j].set('w', 'n', not_selected, true);
+									chessboard[i - 2][j + 1].color = temp_color;
+									chessboard[i - 1][j + 1].type = temp_type;
+									chessboard[i][j].color = 'w';
+									chessboard[i][j].type = 'n';
 									return false;
 								}
 								else
 								{
-									chessboard[i - 2][j + 1].set(temp_color, temp_type, not_selected, true);
-									chessboard[i][j].set('w', 'n', not_selected, true);
+									chessboard[i - 2][j + 1].color = temp_color;
+									chessboard[i - 2][j + 1].type = temp_type;
+									chessboard[i][j].color = 'w';
+									chessboard[i][j].type = 'n';
 								}
 							}
 						}
+
 						if (i + 2 < 8 && j - 1 >= 0)
 						{
 							temp_color = chessboard[i + 2][j - 1].color;
 							temp_type = chessboard[i + 2][j - 1].type;
 							if (chessboard[i + 2][j - 1].color != 'w')
 							{
-								chessboard[i + 2][j - 1].set('w', 'n', not_selected, true);
-								chessboard[i][j].set('w', 'n', not_selected, true);
+								chessboard[i + 2][j - 1].color = 'w';
+								chessboard[i + 2][j - 1].type = 'n';
+								chessboard[i][j].color = ' ';
+								chessboard[i][j].type = ' ';
 								if (!is_white_in_check())
 								{
-									chessboard[i + 2][j - 1].set(temp_color, temp_type, not_selected, true);
-									chessboard[i][j].set('w', 'n', not_selected, true);
+									chessboard[i + 2][j - 1].color = temp_color;
+									chessboard[i + 2][j - 1].type = temp_type;
+									chessboard[i][j].color = 'w';
+									chessboard[i][j].type = 'n';
 									return false;
 								}
 								else
 								{
-									chessboard[i + 2][j - 1].set(temp_color, temp_type, not_selected, true);
-									chessboard[i][j].set('w', 'n', not_selected, true);
+									chessboard[i + 2][j - 1].color = temp_color;
+									chessboard[i + 2][j - 1].type = temp_type;
+									chessboard[i][j].color = 'w';
+									chessboard[i][j].type = 'n';
 								}
 							}
 						}
+
 						if (i + 2 < 8 && j + 1 < 8)
 						{
 							temp_color = chessboard[i + 2][j + 1].color;
-							temp_type = chessboard[i + 2][j +1].type;
+							temp_type = chessboard[i + 2][j + 1].type;
 							if (chessboard[i + 2][j + 1].color != 'w')
 							{
-								chessboard[i + 2][j + 1].set('w', 'n', not_selected, true);
-								chessboard[i][j].set('w', 'n', not_selected, true);
+								chessboard[i + 2][j + 1].color = 'w';
+								chessboard[i + 2][j + 1].type = 'n';
+								chessboard[i][j].color = ' ';
+								chessboard[i][j].type = ' ';
 								if (!is_white_in_check())
 								{
-									chessboard[i + 2][j + 1].set(temp_color, temp_type, not_selected, true);
-									chessboard[i][j].set('w', 'n', not_selected, true);
+									chessboard[i + 2][j + 1].color = temp_color;
+									chessboard[i + 2][j + 1].type = temp_type;
+									chessboard[i][j].color = 'w';
+									chessboard[i][j].type = 'n';
 									return false;
 								}
 								else
 								{
-									chessboard[i + 2][j + 1].set(temp_color, temp_type, not_selected, true);
-									chessboard[i][j].set('w', 'n', not_selected, true);
+									chessboard[i + 2][j + 1].color = temp_color;
+									chessboard[i + 2][j + 1].type = temp_type;
+									chessboard[i][j].color = 'w';
+									chessboard[i][j].type = 'n';
 								}
 							}
 						}
+
 						if (i - 1 >= 0 && j - 2 >= 0)
 						{
-							temp_color = chessboard[i - 2][j - 1].color;
-							temp_type = chessboard[i - 2][j - 1].type;
+							temp_color = chessboard[i - 1][j - 2].color;
+							temp_type = chessboard[i - 1][j - 2].type;
 							if (chessboard[i - 1][j - 2].color != 'w')
 							{
-								chessboard[i - 1][j - 2].set('w', 'n', not_selected, true);
-								chessboard[i][j].set('w', 'n', not_selected, true);
+								chessboard[i - 1][j - 2].color = 'w';
+								chessboard[i - 1][j - 2].type = 'n';
+								chessboard[i][j].color = ' ';
+								chessboard[i][j].type = ' ';
 								if (!is_white_in_check())
 								{
-									chessboard[i - 1][j - 2].set(temp_color, temp_type, not_selected, true);
-									chessboard[i][j].set('w', 'n', not_selected, true);
+									chessboard[i - 1][j - 2].color = temp_color;
+									chessboard[i - 1][j - 2].type = temp_type;
+									chessboard[i][j].color = 'w';
+									chessboard[i][j].type = 'n';
 									return false;
 								}
 								else
 								{
-									chessboard[i - 1][j - 2].set(temp_color, temp_type, not_selected, true);
-									chessboard[i][j].set('w', 'n', not_selected, true);
+									chessboard[i - 1][j - 2].color = temp_color;
+									chessboard[i - 1][j - 2].type = temp_type;
+									chessboard[i][j].color = 'w';
+									chessboard[i][j].type = 'n';
 								}
 							}
 						}
@@ -2082,18 +2283,24 @@ bool Board::is_white_in_checkmate()
 							temp_type = chessboard[i - 1][j + 2].type;
 							if (chessboard[i - 1][j + 2].color != 'w')
 							{
-								chessboard[i - 1][j + 2].set('w', 'n', not_selected, true);
-								chessboard[i][j].set('w', 'n', not_selected, true);
+								chessboard[i - 1][j + 2].color = 'w';
+								chessboard[i - 1][j + 2].type = 'n';
+								chessboard[i][j].color = ' ';
+								chessboard[i][j].type = ' ';
 								if (!is_white_in_check())
 								{
-									chessboard[i - 1][j + 2].set(temp_color, temp_type, not_selected, true);
-									chessboard[i][j].set('w', 'n', not_selected, true);
+									chessboard[i - 1][j + 2].color = temp_color;
+									chessboard[i - 1][j + 2].type = temp_type;
+									chessboard[i][j].color = 'w';
+									chessboard[i][j].type = 'n';
 									return false;
 								}
 								else
 								{
-									chessboard[i - 1][j + 2].set(temp_color, temp_type, not_selected, true);
-									chessboard[i][j].set('w', 'n', not_selected, true);
+									chessboard[i - 1][j + 2].color = temp_color;
+									chessboard[i - 1][j + 2].type = temp_type;
+									chessboard[i][j].color = 'w';
+									chessboard[i][j].type = 'n';
 								}
 							}
 						}
@@ -2103,18 +2310,24 @@ bool Board::is_white_in_checkmate()
 							temp_type = chessboard[i + 1][j - 2].type;
 							if (chessboard[i + 1][j - 2].color != 'w')
 							{
-								chessboard[i + 1][j - 2].set('w', 'n', not_selected, true);
-								chessboard[i][j].set('w', 'n', not_selected, true);
+								chessboard[i + 1][j - 2].color = 'w';
+								chessboard[i + 1][j - 2].type = 'n';
+								chessboard[i][j].color = ' ';
+								chessboard[i][j].type = ' ';
 								if (!is_white_in_check())
 								{
-									chessboard[i + 1][j - 2].set(temp_color, temp_type, not_selected, true);
-									chessboard[i][j].set('w', 'n', not_selected, true);
+									chessboard[i + 1][j - 2].color = temp_color;
+									chessboard[i + 1][j - 2].type = temp_type;
+									chessboard[i][j].color = 'w';
+									chessboard[i][j].type = 'n';
 									return false;
 								}
 								else
 								{
-									chessboard[i + 1][j - 2].set(temp_color, temp_type, not_selected, true);
-									chessboard[i][j].set('w', 'n', not_selected, true);
+									chessboard[i + 1][j - 2].color = temp_color;
+									chessboard[i + 1][j - 2].type = temp_type;
+									chessboard[i][j].color = 'w';
+									chessboard[i][j].type = 'n';
 								}
 							}
 						}
@@ -2124,18 +2337,24 @@ bool Board::is_white_in_checkmate()
 							temp_type = chessboard[i + 1][j + 2].type;
 							if (chessboard[i + 1][j + 2].color != 'w')
 							{
-								chessboard[i + 1][j + 2].set('w', 'n', not_selected, true);
-								chessboard[i][j].set('w', 'n', not_selected, true);
+								chessboard[i + 1][j + 2].color = 'w';
+								chessboard[i + 1][j + 2].type = 'n';
+								chessboard[i][j].color = ' ';
+								chessboard[i][j].type = ' ';
 								if (!is_white_in_check())
 								{
-									chessboard[i + 1][j + 2].set(temp_color, temp_type, not_selected, true);
-									chessboard[i][j].set('w', 'n', not_selected, true);
+									chessboard[i + 1][j + 2].color = temp_color;
+									chessboard[i + 1][j + 2].type = temp_type;
+									chessboard[i][j].color = 'w';
+									chessboard[i][j].type = 'n';
 									return false;
 								}
 								else
 								{
-									chessboard[i + 1][j + 2].set(temp_color, temp_type, not_selected, true);
-									chessboard[i][j].set('w', 'n', not_selected, true);
+									chessboard[i + 1][j + 2].color = temp_color;
+									chessboard[i + 1][j + 2].type = temp_type;
+									chessboard[i][j].color = 'w';
+									chessboard[i][j].type = 'n';
 								}
 							}
 						}
@@ -2168,54 +2387,74 @@ bool Board::is_black_in_checkmate()
 						{
 							temp_type = chessboard[i + 1][j].type;
 							temp_color = chessboard[i + 1][j].color;
-							chessboard[i + 1][j].set('b', 'p', not_selected, true);
-							chessboard[i][j].set(' ', ' ', not_selected, true);
+							chessboard[i +1][j].color = 'b';
+							chessboard[i + 1][j].type = 'p';
+							chessboard[i][j].color = ' ';
+							chessboard[i][j].type = ' ';
 							if (!is_black_in_check())
 							{
-								chessboard[i + 1][j].set(temp_color, temp_type, not_selected, false);
-								chessboard[i][j].set('b', 'p', not_selected, true);
+								chessboard[i + 1][j].color = temp_color;
+								chessboard[i + 1][j].type = temp_type;
+								chessboard[i][j].color = 'b';
+								chessboard[i][j].type = 'p';
 								return false;
 							}
 							else
 							{
-								chessboard[i + 1][j].set(temp_color, temp_type, not_selected, false);
-								chessboard[i][j].set('b', 'p', not_selected, true);
+								chessboard[i + 1][j].color = temp_color;
+								chessboard[i + 1][j].type = temp_type;
+								chessboard[i][j].color = 'b';
+								chessboard[i][j].type = 'p';
 							}
 						}
-						if (chessboard[i + 1][j - 1].color == 'w' && j - 1 >= 0)
+
+						if (chessboard[i - 1][j - 1].color == 'w' && j - 1 >= 0)
 						{
-							temp_type = chessboard[i + 1][j - 1].type;
-							temp_color = chessboard[i + 1][j - 1].color;
-							chessboard[i + 1][j - 1].set('b', 'p', not_selected, true);
-							chessboard[i][j].set(' ', ' ', not_selected, true);
+							temp_type = chessboard[i - 1][j].type;
+							temp_color = chessboard[i - 1][j].color;
+							chessboard[i + 1][j - 1].color = 'b';
+							chessboard[i + 1][j - 1].type = 'p';
+							chessboard[i][j].color = ' ';
+							chessboard[i][j].type = ' ';
 							if (!is_black_in_check())
 							{
-								chessboard[i + 1][j - 1].set(temp_color, temp_type, not_selected, false);
-								chessboard[i][j].set('b', 'p', not_selected, true);
+								chessboard[i + 1][j - 1].color = temp_color;
+								chessboard[i +1][j - 1].type = temp_type;
+								chessboard[i][j].color = 'b';
+								chessboard[i][j].type = 'p';
 								return false;
 							}
 							else
 							{
-								chessboard[i + 1][j - 1].set(temp_color, temp_type, not_selected, false);
-								chessboard[i][j].set('b', 'p', not_selected, true);
+								chessboard[i + 1][j - 1].color = temp_color;
+								chessboard[i + 1][j - 1].type = temp_type;
+								chessboard[i][j].color = 'b';
+								chessboard[i][j].type = 'p';
 							}
 						}
-						if (chessboard[i + 1][j + 1].color == 'w' && j + 1 < 8)
+
+						if (chessboard[i - 1][j + 1].color == 'w' && j + 1 < 8)
 						{
 							temp_type = chessboard[i + 1][j + 1].type;
 							temp_color = chessboard[i + 1][j + 1].color;
-							chessboard[i + 1][j + 1].set('b', 'p', not_selected, true);
-							chessboard[i][j].set(' ', ' ', not_selected, true);
+							chessboard[i + 1][j + 1].color = 'b';
+							chessboard[i + 1][j + 1].type = 'p';
+							chessboard[i][j].color = ' ';
+							chessboard[i][j].type = ' ';
 							if (!is_black_in_check())
 							{
-								chessboard[i + 1][j + 1].set(temp_color, temp_type, not_selected, false);
-								chessboard[i][j].set('b', 'p', not_selected, true);
+								chessboard[i + 1][j + 1].color = temp_color;
+								chessboard[i + 1][j + 1].type = temp_type;
+								chessboard[i][j].color = 'b';
+								chessboard[i][j].type = 'p';
 								return false;
 							}
 							else
 							{
-								chessboard[i + 1][j + 1].set(temp_color, temp_type, not_selected, false);
-								chessboard[i][j].set('b', 'p', not_selected, true);
+								chessboard[i + 1][j + 1].color = temp_color;
+								chessboard[i + 1][j + 1].type = temp_type;
+								chessboard[i][j].color = 'b';
+								chessboard[i][j].type = 'p';
 							}
 						}
 					}
@@ -2231,22 +2470,29 @@ bool Board::is_black_in_checkmate()
 								if (chessboard[i + temp_i][j + temp_i].color == 'b') break;
 								else
 								{
-									chessboard[i + temp_i][j + temp_i].set('b', 'b', not_selected, true);
-									chessboard[i][j].set(' ', ' ', not_selected, true);
+									chessboard[i + temp_i][j + temp_i].color = 'b';
+									chessboard[i + temp_i][j + temp_i].type = 'b';
+									chessboard[i][j].color = ' ';
+									chessboard[i][j].type = ' ';
 									if (!is_black_in_check())
 									{
-										chessboard[i + temp_i][j + temp_i].set(temp_color, temp_type, not_selected, true);
-										chessboard[i][j].set('b', 'b', not_selected, true);
+										chessboard[i + temp_i][j + temp_i].color = temp_color;
+										chessboard[i + temp_i][j + temp_i].type = temp_type;
+										chessboard[i][j].color = 'b';
+										chessboard[i][j].type = 'b';
 										return false;
 									}
 									else
 									{
-										chessboard[i + temp_i][j + temp_i].set(temp_color, temp_type, not_selected, true);
-										chessboard[i][j].set('b', 'b', not_selected, true);
+										chessboard[i + temp_i][j + temp_i].color = temp_color;
+										chessboard[i + temp_i][j + temp_i].type = temp_type;
+										chessboard[i][j].color = 'b';
+										chessboard[i][j].type = 'b';
 									}
 								}
 							}
 						}
+
 						for (int temp_i = 1; temp_i < 8; temp_i++)
 						{
 							if (i + temp_i < 8 && j - temp_i >= 0)
@@ -2256,22 +2502,29 @@ bool Board::is_black_in_checkmate()
 								if (chessboard[i + temp_i][j - temp_i].color == 'b') break;
 								else
 								{
-									chessboard[i + temp_i][j - temp_i].set('b', 'b', not_selected, true);
-									chessboard[i][j].set(' ', ' ', not_selected, true);
+									chessboard[i + temp_i][j + temp_i].color = 'b';
+									chessboard[i + temp_i][j + temp_i].type = 'b';
+									chessboard[i][j].color = ' ';
+									chessboard[i][j].type = ' ';
 									if (!is_black_in_check())
 									{
-										chessboard[i + temp_i][j - temp_i].set(temp_color, temp_type, not_selected, true);
-										chessboard[i][j].set('b', 'b', not_selected, true);
+										chessboard[i + temp_i][j - temp_i].color = temp_color;
+										chessboard[i + temp_i][j - temp_i].type = temp_type;
+										chessboard[i][j].color = 'b';
+										chessboard[i][j].type = 'b';
 										return false;
 									}
 									else
 									{
-										chessboard[i + temp_i][j - temp_i].set(temp_color, temp_type, not_selected, true);
-										chessboard[i][j].set('b', 'b', not_selected, true);
+										chessboard[i + temp_i][j - temp_i].color = temp_color;
+										chessboard[i + temp_i][j - temp_i].type = temp_type;
+										chessboard[i][j].color = 'b';
+										chessboard[i][j].type = 'b';
 									}
 								}
 							}
 						}
+
 						for (int temp_i = 1; temp_i < 8; temp_i++)
 						{
 							if (i - temp_i >= 0 && j + temp_i < 8)
@@ -2281,43 +2534,56 @@ bool Board::is_black_in_checkmate()
 								if (chessboard[i - temp_i][j + temp_i].color == 'b') break;
 								else
 								{
-									chessboard[i - temp_i][j + temp_i].set('b', 'b', not_selected, true);
-									chessboard[i][j].set(' ', ' ', not_selected, true);
+									chessboard[i + temp_i][j + temp_i].color = 'b';
+									chessboard[i + temp_i][j + temp_i].type = 'b';
+									chessboard[i][j].color = ' ';
+									chessboard[i][j].type = ' ';
 									if (!is_black_in_check())
 									{
-										chessboard[i - temp_i][j + temp_i].set(temp_color, temp_type, not_selected, true);
-										chessboard[i][j].set('b', 'b', not_selected, true);
+										chessboard[i - temp_i][j + temp_i].color = temp_color;
+										chessboard[i - temp_i][j + temp_i].type = temp_type;
+										chessboard[i][j].color = 'b';
+										chessboard[i][j].type = 'b';
 										return false;
 									}
 									else
 									{
-										chessboard[i - temp_i][j + temp_i].set(temp_color, temp_type, not_selected, true);
-										chessboard[i][j].set('b', 'b', not_selected, true);
+										chessboard[i - temp_i][j + temp_i].color = temp_color;
+										chessboard[i - temp_i][j + temp_i].type = temp_type;
+										chessboard[i][j].color = 'b';
+										chessboard[i][j].type = 'b';
 									}
 								}
 							}
 						}
+
 						for (int temp_i = 1; temp_i < 8; temp_i++)
 						{
 							if (i - temp_i >= 0 && j - temp_i >= 0)
 							{
 								temp_color = chessboard[i - temp_i][j - temp_i].color;
 								temp_type = chessboard[i - temp_i][j - temp_i].type;
-								if (chessboard[i - temp_i][j - temp_i].color == 'b') break;
+								if (chessboard[i - temp_i][j - temp_i].color == 'w') break;
 								else
 								{
-									chessboard[i - temp_i][j - temp_i].set('b', 'b', not_selected, true);
-									chessboard[i][j].set(' ', ' ', not_selected, true);
+									chessboard[i + temp_i][j + temp_i].color = 'b';
+									chessboard[i + temp_i][j + temp_i].type = 'b';
+									chessboard[i][j].color = ' ';
+									chessboard[i][j].type = ' ';
 									if (!is_black_in_check())
 									{
-										chessboard[i - temp_i][j - temp_i].set(temp_color, temp_type, not_selected, true);
-										chessboard[i][j].set('b', 'b', not_selected, true);
+										chessboard[i - temp_i][j - temp_i].color = temp_color;
+										chessboard[i - temp_i][j - temp_i].type = temp_type;
+										chessboard[i][j].color = 'b';
+										chessboard[i][j].type = 'b';
 										return false;
 									}
 									else
 									{
-										chessboard[i - temp_i][j - temp_i].set(temp_color, temp_type, not_selected, true);
-										chessboard[i][j].set('b', 'b', not_selected, true);
+										chessboard[i - temp_i][j - temp_i].color = temp_color;
+										chessboard[i - temp_i][j - temp_i].type = temp_type;
+										chessboard[i][j].color = 'b';
+										chessboard[i][j].type = 'b';
 									}
 								}
 
@@ -2336,22 +2602,29 @@ bool Board::is_black_in_checkmate()
 								if (chessboard[i + temp_i][j].color == 'b') break;
 								else
 								{
-									chessboard[i + temp_i][j].set('b', 'r', not_selected, true);
-									chessboard[i][j].set(' ', ' ', not_selected, true);
+									chessboard[i + temp_i][j].color = 'b';
+									chessboard[i + temp_i][j].type = 'r';
+									chessboard[i][j].color = ' ';
+									chessboard[i][j].type = ' ';
 									if (!is_black_in_check())
 									{
-										chessboard[i + temp_i][j].set(temp_color, temp_type, not_selected, true);
-										chessboard[i][j].set('b', 'r', not_selected, true);
+										chessboard[i + temp_i][j].color = temp_color;
+										chessboard[i + temp_i][j].type = temp_type;
+										chessboard[i][j].color = 'b';
+										chessboard[i][j].type = 'r';
 										return false;
 									}
 									else
 									{
-										chessboard[i + temp_i][j].set(temp_color, temp_type, not_selected, true);
-										chessboard[i][j].set('b', 'r', not_selected, true);
+										chessboard[i + temp_i][j].color = temp_color;
+										chessboard[i + temp_i][j].type = temp_type;
+										chessboard[i][j].color = 'b';
+										chessboard[i][j].type = 'r';
 									}
 								}
 							}
 						}
+
 						for (int temp_i = 1; temp_i < 8; temp_i++)
 						{
 							if (i - temp_i >= 0)
@@ -2361,22 +2634,29 @@ bool Board::is_black_in_checkmate()
 								if (chessboard[i - temp_i][j].color == 'b') break;
 								else
 								{
-									chessboard[i - temp_i][j].set('b', 'r', not_selected, true);
-									chessboard[i][j].set(' ', ' ', not_selected, true);
+									chessboard[i - temp_i][j].color = 'b';
+									chessboard[i - temp_i][j].type = 'r';
+									chessboard[i][j].color = ' ';
+									chessboard[i][j].type = ' ';
 									if (!is_black_in_check())
 									{
-										chessboard[i - temp_i][j].set(temp_color, temp_type, not_selected, true);
-										chessboard[i][j].set('b', 'r', not_selected, true);
+										chessboard[i - temp_i][j].color = temp_color;
+										chessboard[i - temp_i][j].type = temp_type;
+										chessboard[i][j].color = 'b';
+										chessboard[i][j].type = 'r';
 										return false;
 									}
 									else
 									{
-										chessboard[i - temp_i][j].set(temp_color, temp_type, not_selected, true);
-										chessboard[i][j].set('b', 'r', not_selected, true);
+										chessboard[i - temp_i][j].color = temp_color;
+										chessboard[i - temp_i][j].type = temp_type;
+										chessboard[i][j].color = 'b';
+										chessboard[i][j].type = 'r';
 									}
 								}
 							}
 						}
+
 						for (int temp_i = 1; temp_i < 8; temp_i++)
 						{
 							if (j + temp_i < 8)
@@ -2386,22 +2666,29 @@ bool Board::is_black_in_checkmate()
 								if (chessboard[i][j + temp_i].color == 'b') break;
 								else
 								{
-									chessboard[i][j + temp_i].set('b', 'r', not_selected, true);
-									chessboard[i][j].set(' ', ' ', not_selected, true);
+									chessboard[i][j + temp_i].color = 'b';
+									chessboard[i][j + temp_i].type = 'r';
+									chessboard[i][j].color = ' ';
+									chessboard[i][j].type = ' ';
 									if (!is_black_in_check())
 									{
-										chessboard[i][j + temp_i].set(temp_color, temp_type, not_selected, true);
-										chessboard[i][j].set('b', 'r', not_selected, true);
+										chessboard[i][j + temp_i].color = temp_color;
+										chessboard[i][j + temp_i].type = temp_type;
+										chessboard[i][j].color = 'b';
+										chessboard[i][j].type = 'r';
 										return false;
 									}
 									else
 									{
-										chessboard[i][j + temp_i].set(temp_color, temp_type, not_selected, true);
-										chessboard[i][j].set('b', 'r', not_selected, true);
+										chessboard[i][j + temp_i].color = temp_color;
+										chessboard[i][j + temp_i].type = temp_type;
+										chessboard[i][j].color = 'b';
+										chessboard[i][j].type = 'r';
 									}
 								}
 							}
 						}
+
 						for (int temp_i = 1; temp_i < 8; temp_i++)
 						{
 							if (j - temp_i >= 0)
@@ -2411,18 +2698,24 @@ bool Board::is_black_in_checkmate()
 								if (chessboard[i][j - temp_i].color == 'b') break;
 								else
 								{
-									chessboard[i][j - temp_i].set('b', 'r', not_selected, true);
-									chessboard[i][j].set(' ', ' ', not_selected, true);
+									chessboard[i][j - temp_i].color = 'b';
+									chessboard[i][j - temp_i].type = 'r';
+									chessboard[i][j].color = ' ';
+									chessboard[i][j].type = ' ';
 									if (!is_black_in_check())
 									{
-										chessboard[i][j - temp_i].set(temp_color, temp_type, not_selected, true);
-										chessboard[i][j].set('b', 'r', not_selected, true);
+										chessboard[i][j - temp_i].color = temp_color;
+										chessboard[i][j - temp_i].type = temp_type;
+										chessboard[i][j].color = 'b';
+										chessboard[i][j].type = 'r';
 										return false;
 									}
 									else
 									{
-										chessboard[i][j - temp_i].set(temp_color, temp_type, not_selected, true);
-										chessboard[i][j].set('b', 'r', not_selected, true);
+										chessboard[i][j - temp_i].color = temp_color;
+										chessboard[i][j - temp_i].type = temp_type;
+										chessboard[i][j].color = 'b';
+										chessboard[i][j].type = 'r';
 									}
 								}
 							}
@@ -2443,18 +2736,24 @@ bool Board::is_black_in_checkmate()
 								if (chessboard[i + temp_i][j + temp_i].color == 'b') break;
 								else
 								{
-									chessboard[i + temp_i][j + temp_i].set('b', 'q', not_selected, true);
-									chessboard[i][j].set(' ', ' ', not_selected, true);
+									chessboard[i + temp_i][j + temp_i].color = 'b';
+									chessboard[i + temp_i][j + temp_i].type = 'q';
+									chessboard[i][j].color = ' ';
+									chessboard[i][j].type = ' ';
 									if (!is_black_in_check())
 									{
-										chessboard[i + temp_i][j + temp_i].set(temp_color, temp_type, not_selected, true);
-										chessboard[i][j].set('b', 'q', not_selected, true);
+										chessboard[i + temp_i][j + temp_i].color = temp_color;
+										chessboard[i + temp_i][j + temp_i].type = temp_type;
+										chessboard[i][j].color = 'b';
+										chessboard[i][j].type = 'q';
 										return false;
 									}
 									else
 									{
-										chessboard[i + temp_i][j + temp_i].set(temp_color, temp_type, not_selected, true);
-										chessboard[i][j].set('b', 'q', not_selected, true);
+										chessboard[i + temp_i][j + temp_i].color = temp_color;
+										chessboard[i + temp_i][j + temp_i].type = temp_type;
+										chessboard[i][j].color = 'b';
+										chessboard[i][j].type = 'q';
 									}
 								}
 							}
@@ -2468,18 +2767,24 @@ bool Board::is_black_in_checkmate()
 								if (chessboard[i + temp_i][j - temp_i].color == 'b') break;
 								else
 								{
-									chessboard[i + temp_i][j - temp_i].set('b', 'q', not_selected, true);
-									chessboard[i][j].set(' ', ' ', not_selected, true);
+									chessboard[i + temp_i][j - temp_i].color = 'b';
+									chessboard[i + temp_i][j - temp_i].type = 'q';
+									chessboard[i][j].color = ' ';
+									chessboard[i][j].type = ' ';
 									if (!is_black_in_check())
 									{
-										chessboard[i + temp_i][j - temp_i].set(temp_color, temp_type, not_selected, true);
-										chessboard[i][j].set('b', 'q', not_selected, true);
+										chessboard[i + temp_i][j - temp_i].color = temp_color;
+										chessboard[i + temp_i][j - temp_i].type = temp_type;
+										chessboard[i][j].color = 'b';
+										chessboard[i][j].type = 'q';
 										return false;
 									}
 									else
 									{
-										chessboard[i + temp_i][j - temp_i].set(temp_color, temp_type, not_selected, true);
-										chessboard[i][j].set('b', 'q', not_selected, true);
+										chessboard[i + temp_i][j - temp_i].color = temp_color;
+										chessboard[i + temp_i][j - temp_i].type = temp_type;
+										chessboard[i][j].color = 'b';
+										chessboard[i][j].type = 'q';
 									}
 								}
 							}
@@ -2493,18 +2798,24 @@ bool Board::is_black_in_checkmate()
 								if (chessboard[i - temp_i][j + temp_i].color == 'b') break;
 								else
 								{
-									chessboard[i - temp_i][j + temp_i].set('b', 'q', not_selected, true);
-									chessboard[i][j].set(' ', ' ', not_selected, true);
+									chessboard[i - temp_i][j + temp_i].color = 'b';
+									chessboard[i - temp_i][j + temp_i].type = 'q';
+									chessboard[i][j].color = ' ';
+									chessboard[i][j].type = ' ';
 									if (!is_black_in_check())
 									{
-										chessboard[i - temp_i][j + temp_i].set(temp_color, temp_type, not_selected, true);
-										chessboard[i][j].set('b', 'q', not_selected, true);
+										chessboard[i - temp_i][j + temp_i].color = temp_color;
+										chessboard[i - temp_i][j + temp_i].type = temp_type;
+										chessboard[i][j].color = 'b';
+										chessboard[i][j].type = 'q';
 										return false;
 									}
 									else
 									{
-										chessboard[i - temp_i][j + temp_i].set(temp_color, temp_type, not_selected, true);
-										chessboard[i][j].set('b', 'q', not_selected, true);
+										chessboard[i - temp_i][j + temp_i].color = temp_color;
+										chessboard[i - temp_i][j + temp_i].type = temp_type;
+										chessboard[i][j].color = 'b';
+										chessboard[i][j].type = 'q';
 									}
 								}
 							}
@@ -2518,18 +2829,24 @@ bool Board::is_black_in_checkmate()
 								if (chessboard[i - temp_i][j - temp_i].color == 'b') break;
 								else
 								{
-									chessboard[i - temp_i][j - temp_i].set('b', 'q', not_selected, true);
-									chessboard[i][j].set(' ', ' ', not_selected, true);
+									chessboard[i - temp_i][j - temp_i].color = 'b';
+									chessboard[i - temp_i][j - temp_i].type = 'q';
+									chessboard[i][j].color = ' ';
+									chessboard[i][j].type = ' ';
 									if (!is_black_in_check())
 									{
-										chessboard[i - temp_i][j - temp_i].set(temp_color, temp_type, not_selected, true);
-										chessboard[i][j].set('b', 'q', not_selected, true);
+										chessboard[i - temp_i][j - temp_i].color = temp_color;
+										chessboard[i - temp_i][j - temp_i].type = temp_type;
+										chessboard[i][j].color = 'b';
+										chessboard[i][j].type = 'q';
 										return false;
 									}
 									else
 									{
-										chessboard[i - temp_i][j - temp_i].set(temp_color, temp_type, not_selected, true);
-										chessboard[i][j].set('b', 'q', not_selected, true);
+										chessboard[i - temp_i][j - temp_i].color = temp_color;
+										chessboard[i - temp_i][j - temp_i].type = temp_type;
+										chessboard[i][j].color = 'b';
+										chessboard[i][j].type = 'q';
 									}
 								}
 
@@ -2547,18 +2864,24 @@ bool Board::is_black_in_checkmate()
 								if (chessboard[i + temp_i][j].color == 'b') break;
 								else
 								{
-									chessboard[i + temp_i][j].set('b', 'q', not_selected, true);
-									chessboard[i][j].set(' ', ' ', not_selected, true);
+									chessboard[i + temp_i][j].color = 'b';
+									chessboard[i + temp_i][j].type = 'q';
+									chessboard[i][j].color = ' ';
+									chessboard[i][j].type = ' ';
 									if (!is_black_in_check())
 									{
-										chessboard[i + temp_i][j].set(temp_color, temp_type, not_selected, true);
-										chessboard[i][j].set('b', 'q', not_selected, true);
+										chessboard[i + temp_i][j].color = temp_color;
+										chessboard[i + temp_i][j].type = temp_type;
+										chessboard[i][j].color = 'b';
+										chessboard[i][j].type = 'q';
 										return false;
 									}
 									else
 									{
-										chessboard[i + temp_i][j].set(temp_color, temp_type, not_selected, true);
-										chessboard[i][j].set('b', 'q', not_selected, true);
+										chessboard[i + temp_i][j].color = temp_color;
+										chessboard[i + temp_i][j].type = temp_type;
+										chessboard[i][j].color = 'b';
+										chessboard[i][j].type = 'q';
 									}
 								}
 							}
@@ -2572,18 +2895,24 @@ bool Board::is_black_in_checkmate()
 								if (chessboard[i - temp_i][j].color == 'b') break;
 								else
 								{
-									chessboard[i - temp_i][j].set('b', 'q', not_selected, true);
-									chessboard[i][j].set(' ', ' ', not_selected, true);
+									chessboard[i - temp_i][j].color = 'b';
+									chessboard[i - temp_i][j].type = 'q';
+									chessboard[i][j].color = ' ';
+									chessboard[i][j].type = ' ';
 									if (!is_black_in_check())
 									{
-										chessboard[i - temp_i][j].set(temp_color, temp_type, not_selected, true);
-										chessboard[i][j].set('b', 'q', not_selected, true);
+										chessboard[i - temp_i][j].color = temp_color;
+										chessboard[i - temp_i][j].type = temp_type;
+										chessboard[i][j].color = 'b';
+										chessboard[i][j].type = 'q';
 										return false;
 									}
 									else
 									{
-										chessboard[i - temp_i][j].set(temp_color, temp_type, not_selected, true);
-										chessboard[i][j].set('b', 'q', not_selected, true);
+										chessboard[i - temp_i][j].color = temp_color;
+										chessboard[i - temp_i][j].type = temp_type;
+										chessboard[i][j].color = 'b';
+										chessboard[i][j].type = 'q';
 									}
 								}
 							}
@@ -2597,18 +2926,24 @@ bool Board::is_black_in_checkmate()
 								if (chessboard[i][j + temp_i].color == 'b') break;
 								else
 								{
-									chessboard[i][j + temp_i].set('b', 'q', not_selected, true);
-									chessboard[i][j].set(' ', ' ', not_selected, true);
+									chessboard[i][j + temp_i].color = 'b';
+									chessboard[i][j + temp_i].type = 'q';
+									chessboard[i][j].color = ' ';
+									chessboard[i][j].type = ' ';
 									if (!is_black_in_check())
 									{
-										chessboard[i][j + temp_i].set(temp_color, temp_type, not_selected, true);
-										chessboard[i][j].set('b', 'q', not_selected, true);
+										chessboard[i][j + temp_i].color = temp_color;
+										chessboard[i][j + temp_i].type = temp_type;
+										chessboard[i][j].color = 'b';
+										chessboard[i][j].type = 'q';
 										return false;
 									}
 									else
 									{
-										chessboard[i][j + temp_i].set(temp_color, temp_type, not_selected, true);
-										chessboard[i][j].set('b', 'q', not_selected, true);
+										chessboard[i][j + temp_i].color = temp_color;
+										chessboard[i][j + temp_i].type = temp_type;
+										chessboard[i][j].color = 'b';
+										chessboard[i][j].type = 'q';
 									}
 								}
 							}
@@ -2622,18 +2957,24 @@ bool Board::is_black_in_checkmate()
 								if (chessboard[i][j - temp_i].color == 'b') break;
 								else
 								{
-									chessboard[i][j - temp_i].set('b', 'q', not_selected, true);
-									chessboard[i][j].set(' ', ' ', not_selected, true);
+									chessboard[i][j - temp_i].color = 'b';
+									chessboard[i][j - temp_i].type = 'q';
+									chessboard[i][j].color = ' ';
+									chessboard[i][j].type = ' ';
 									if (!is_black_in_check())
 									{
-										chessboard[i][j - temp_i].set(temp_color, temp_type, not_selected, true);
-										chessboard[i][j].set('b', 'q', not_selected, true);
+										chessboard[i][j - temp_i].color = temp_color;
+										chessboard[i][j - temp_i].type = temp_type;
+										chessboard[i][j].color = 'b';
+										chessboard[i][j].type = 'q';
 										return false;
 									}
 									else
 									{
-										chessboard[i][j - temp_i].set(temp_color, temp_type, not_selected, true);
-										chessboard[i][j].set('b', 'q', not_selected, true);
+										chessboard[i][j - temp_i].color = temp_color;
+										chessboard[i][j - temp_i].type = temp_type;
+										chessboard[i][j].color = 'b';
+										chessboard[i][j].type = 'q';
 									}
 								}
 							}
@@ -2642,24 +2983,31 @@ bool Board::is_black_in_checkmate()
 
 					if (chessboard[i][j].type == 'k')
 					{
+
 						if (i - 1 >= 0)
 						{
 							temp_color = chessboard[i - 1][j].color;
 							temp_type = chessboard[i - 1][j].type;
 							if (chessboard[i - 1][j].color != 'b')
 							{
-								chessboard[i - 1][j].set('b', 'k', not_selected, true);
-								chessboard[i][j].set(' ', ' ', not_selected, true);
+								chessboard[i - 1][j].color = 'b';
+								chessboard[i - 1][j].type = 'k';
+								chessboard[i][j].color = ' ';
+								chessboard[i][j].type = ' ';
 								if (!is_black_in_check())
 								{
-									chessboard[i - 1][j].set(temp_color, temp_type, not_selected, true);
-									chessboard[i][j].set('b', 'k', not_selected, true);
+									chessboard[i - 1][j].color = temp_color;
+									chessboard[i - 1][j].type = temp_type;
+									chessboard[i][j].color = 'b';
+									chessboard[i][j].type = 'k';
 									return false;
 								}
 								else
 								{
-									chessboard[i - 1][j].set(temp_color, temp_type, not_selected, true);
-									chessboard[i][j].set('b', 'k', not_selected, true);
+									chessboard[i - 1][j].color = temp_color;
+									chessboard[i - 1][j].type = temp_type;
+									chessboard[i][j].color = 'b';
+									chessboard[i][j].type = 'k';
 								}
 							}
 							if (j - 1 >= 0)
@@ -2668,124 +3016,163 @@ bool Board::is_black_in_checkmate()
 								temp_type = chessboard[i - 1][j - 1].type;
 								if (chessboard[i - 1][j - 1].color != 'b')
 								{
-									chessboard[i - 1][j - 1].set('b', 'k', not_selected, true);
-									chessboard[i][j].set(' ', ' ', not_selected, true);
+									chessboard[i - 1][j - 1].color = 'b';
+									chessboard[i - 1][j - 1].type = 'k';
+									chessboard[i][j].color = ' ';
+									chessboard[i][j].type = ' ';
 									if (!is_black_in_check())
 									{
-										chessboard[i - 1][j - 1].set(temp_color, temp_type, not_selected, true);
-										chessboard[i][j].set('b', 'k', not_selected, true);
+										chessboard[i - 1][j - 1].color = temp_color;
+										chessboard[i - 1][j - 1].type = temp_type;
+										chessboard[i][j].color = 'b';
+										chessboard[i][j].type = 'k';
 										return false;
 									}
 									else
 									{
-										chessboard[i - 1][j - 1].set(temp_color, temp_type, not_selected, true);
-										chessboard[i][j].set('b', 'k', not_selected, true);
+										chessboard[i - 1][j - 1].color = temp_color;
+										chessboard[i - 1][j - 1].type = temp_type;
+										chessboard[i][j].color = 'b';
+										chessboard[i][j].type = 'k';
 									}
 								}
 							}
 						}
+
 						if (i + 1 < 8)
 						{
 							temp_color = chessboard[i + 1][j].color;
 							temp_type = chessboard[i + 1][j].type;
 							if (chessboard[i + 1][j].color != 'b')
 							{
-								chessboard[i + 1][j].set('b', 'k', not_selected, true);
-								chessboard[i][j].set(' ', ' ', not_selected, true);
+								chessboard[i + 1][j].color = 'b';
+								chessboard[i + 1][j].type = 'k';
+								chessboard[i][j].color = ' ';
+								chessboard[i][j].type = ' ';
 								if (!is_black_in_check())
 								{
-									chessboard[i + 1][j].set(temp_color, temp_type, not_selected, true);
-									chessboard[i][j].set('b', 'k', not_selected, true);
+									chessboard[i + 1][j].color = temp_color;
+									chessboard[i + 1][j].type = temp_type;
+									chessboard[i][j].color = 'b';
+									chessboard[i][j].type = 'k';
 									return false;
 								}
 								else
 								{
-									chessboard[i + 1][j].set(temp_color, temp_type, not_selected, true);
-									chessboard[i][j].set('b', 'k', not_selected, true);
+									chessboard[i + 1][j].color = temp_color;
+									chessboard[i + 1][j].type = temp_type;
+									chessboard[i][j].color = 'b';
+									chessboard[i][j].type = 'k';
 								}
 							}
-							if (j + 1 < 8)
+							if (j - 1 >= 0)
 							{
-								temp_color = chessboard[i + 1][j + 1].color;
-								temp_type = chessboard[i + 1][j + 1].type;
-								if (chessboard[i + 1][j + 1].color != 'b')
+								temp_color = chessboard[i + 1][j - 1].color;
+								temp_type = chessboard[i + 1][j - 1].type;
+								if (chessboard[i + 1][j - 1].color != 'b')
 								{
-									chessboard[i + 1][j + 1].set('b', 'k', not_selected, true);
-									chessboard[i][j].set(' ', ' ', not_selected, true);
+									chessboard[i + 1][j - 1].color = 'b';
+									chessboard[i + 1][j - 1].type = 'k';
+									chessboard[i][j].color = ' ';
+									chessboard[i][j].type = ' ';
 									if (!is_black_in_check())
 									{
-										chessboard[i + 1][j + 1].set(temp_color, temp_type, not_selected, true);
-										chessboard[i][j].set('b', 'k', not_selected, true);
+										chessboard[i + 1][j - 1].color = temp_color;
+										chessboard[i + 1][j - 1].type = temp_type;
+										chessboard[i][j].color = 'b';
+										chessboard[i][j].type = 'k';
 										return false;
 									}
 									else
 									{
-										chessboard[i + 1][j + 1].set(temp_color, temp_type, not_selected, true);
-										chessboard[i][j].set('b', 'k', not_selected, true);
+										chessboard[i + 1][j - 1].color = temp_color;
+										chessboard[i + 1][j - 1].type = temp_type;
+										chessboard[i][j].color = 'b';
+										chessboard[i][j].type = 'k';
 									}
 								}
 							}
 						}
+
 						if (j - 1 >= 0)
 						{
 							temp_color = chessboard[i][j - 1].color;
 							temp_type = chessboard[i][j - 1].type;
 							if (chessboard[i][j - 1].color != 'b')
 							{
-								chessboard[i][j - 1].set('b', 'k', not_selected, true);
-								chessboard[i][j].set(' ', ' ', not_selected, true);
+								chessboard[i][j - 1].color = 'b';
+								chessboard[i][j - 1].type = 'k';
+								chessboard[i][j].color = ' ';
+								chessboard[i][j].type = ' ';
 								if (!is_black_in_check())
 								{
-									chessboard[i][j - 1].set(temp_color, temp_type, not_selected, true);
-									chessboard[i][j].set('b', 'k', not_selected, true);
+									chessboard[i][j - 1].color = temp_color;
+									chessboard[i][j - 1].type = temp_type;
+									chessboard[i][j].color = 'b';
+									chessboard[i][j].type = 'k';
 									return false;
 								}
 								else
 								{
-									chessboard[i][j - 1].set(temp_color, temp_type, not_selected, true);
-									chessboard[i][j].set('b', 'k', not_selected, true);
+									chessboard[i][j - 1].color = temp_color;
+									chessboard[i][j - 1].type = temp_type;
+									chessboard[i][j].color = 'b';
+									chessboard[i][j].type = 'k';
 								}
 							}
-							if (i + 1 < 8)
+							if (i - 1 >= 0)
 							{
-								temp_color = chessboard[i + 1][j - 1].color;
-								temp_type = chessboard[i + 1][j - 1].type;
-								if (chessboard[i + 1][j - 1].color != 'b')
+								temp_color = chessboard[i - 1][j - 1].color;
+								temp_type = chessboard[i - 1][j - 1].type;
+								if (chessboard[i - 1][j - 1].color != 'b')
 								{
-									chessboard[i + 1][j - 1].set('b', 'k', not_selected, true);
-									chessboard[i][j].set(' ', ' ', not_selected, true);
+									chessboard[i - 1][j - 1].color = 'b';
+									chessboard[i - 1][j - 1].type = 'k';
+									chessboard[i][j].color = ' ';
+									chessboard[i][j].type = ' ';
 									if (!is_black_in_check())
 									{
-										chessboard[i + 1][j - 1].set(temp_color, temp_type, not_selected, true);
-										chessboard[i][j].set('b', 'k', not_selected, true);
+										chessboard[i - 1][j - 1].color = temp_color;
+										chessboard[i - 1][j - 1].type = temp_type;
+										chessboard[i][j].color = 'b';
+										chessboard[i][j].type = 'k';
 										return false;
 									}
 									else
 									{
-										chessboard[i + 1][j - 1].set(temp_color, temp_type, not_selected, true);
-										chessboard[i][j].set('b', 'k', not_selected, true);
+										chessboard[i - 1][j - 1].color = temp_color;
+										chessboard[i - 1][j - 1].type = temp_type;
+										chessboard[i][j].color = 'b';
+										chessboard[i][j].type = 'k';
 									}
 								}
 							}
 						}
+
 						if (j + 1 < 8)
 						{
 							temp_color = chessboard[i][j + 1].color;
 							temp_type = chessboard[i][j + 1].type;
 							if (chessboard[i][j + 1].color != 'b')
 							{
-								chessboard[i][j + 1].set('b', 'k', not_selected, true);
-								chessboard[i][j].set(' ', ' ', not_selected, true);
+								chessboard[i][j + 1].color = 'b';
+								chessboard[i][j + 1].type = 'k';
+								chessboard[i][j].color = ' ';
+								chessboard[i][j].type = ' ';
 								if (!is_black_in_check())
 								{
-									chessboard[i][j + 1].set(temp_color, temp_type, not_selected, true);
-									chessboard[i][j].set('b', 'k', not_selected, true);
+									chessboard[i][j + 1].color = temp_color;
+									chessboard[i][j + 1].type = temp_type;
+									chessboard[i][j].color = 'b';
+									chessboard[i][j].type = 'k';
 									return false;
 								}
 								else
 								{
-									chessboard[i][j + 1].set(temp_color, temp_type, not_selected, true);
-									chessboard[i][j].set('b', 'k', not_selected, true);
+									chessboard[i][j + 1].color = temp_color;
+									chessboard[i][j + 1].type = temp_type;
+									chessboard[i][j].color = 'b';
+									chessboard[i][j].type = 'k';
 								}
 							}
 							if (i - 1 >= 0)
@@ -2794,18 +3181,24 @@ bool Board::is_black_in_checkmate()
 								temp_type = chessboard[i - 1][j + 1].type;
 								if (chessboard[i - 1][j + 1].color != 'b')
 								{
-									chessboard[i - 1][j + 1].set('b', 'k', not_selected, true);
-									chessboard[i][j].set(' ', ' ', not_selected, true);
+									chessboard[i - 1][j + 1].color = 'b';
+									chessboard[i - 1][j + 1].type = 'k';
+									chessboard[i][j].color = ' ';
+									chessboard[i][j].type = ' ';
 									if (!is_black_in_check())
 									{
-										chessboard[i - 1][j + 1].set(temp_color, temp_type, not_selected, true);
-										chessboard[i][j].set('b', 'k', not_selected, true);
+										chessboard[i - 1][j + 1].color = temp_color;
+										chessboard[i - 1][j + 1].type = temp_type;
+										chessboard[i][j].color = 'b';
+										chessboard[i][j].type = 'k';
 										return false;
 									}
 									else
 									{
-										chessboard[i - 1][j + 1].set(temp_color, temp_type, not_selected, true);
-										chessboard[i][j].set('b', 'k', not_selected, true);
+										chessboard[i - 1][j + 1].color = temp_color;
+										chessboard[i - 1][j + 1].type = temp_type;
+										chessboard[i][j].color = 'b';
+										chessboard[i][j].type = 'k';
 									}
 								}
 							}
@@ -2814,108 +3207,143 @@ bool Board::is_black_in_checkmate()
 
 					if (chessboard[i][j].type == 'n')
 					{
+
 						if (i - 2 >= 0 && j - 1 >= 0)
 						{
 							temp_color = chessboard[i - 2][j - 1].color;
 							temp_type = chessboard[i - 2][j - 1].type;
 							if (chessboard[i - 2][j - 1].color != 'b')
 							{
-								chessboard[i - 2][j - 1].set('b', 'n', not_selected, true);
-								chessboard[i][j].set('b', 'n', not_selected, true);
+								chessboard[i - 2][j - 1].color = 'b';
+								chessboard[i - 2][j - 1].type = 'n';
+								chessboard[i][j].color = ' ';
+								chessboard[i][j].type = ' ';
 								if (!is_black_in_check())
 								{
-									chessboard[i - 2][j - 1].set(temp_color, temp_type, not_selected, true);
-									chessboard[i][j].set('b', 'n', not_selected, true);
+									chessboard[i - 2][j - 1].color = temp_color;
+									chessboard[i - 1][j - 1].type = temp_type;
+									chessboard[i][j].color = 'b';
+									chessboard[i][j].type = 'n';
 									return false;
 								}
 								else
 								{
-									chessboard[i - 2][j - 1].set(temp_color, temp_type, not_selected, true);
-									chessboard[i][j].set('b', 'n', not_selected, true);
+									chessboard[i - 2][j - 1].color = temp_color;
+									chessboard[i - 2][j - 1].type = temp_type;
+									chessboard[i][j].color = 'b';
+									chessboard[i][j].type = 'n';
 								}
 							}
 						}
+
 						if (i - 2 >= 0 && j + 1 < 8)
 						{
 							temp_color = chessboard[i - 2][j + 1].color;
 							temp_type = chessboard[i - 2][j + 1].type;
-							if (chessboard[i - 2][j + 1].color != 'w')
+							if (chessboard[i - 2][j + 1].color != 'b')
 							{
-								chessboard[i - 2][j + 1].set('b', 'n', not_selected, true);
-								chessboard[i][j].set('b', 'n', not_selected, true);
+								chessboard[i - 2][j + 1].color = 'b';
+								chessboard[i - 2][j + 1].type = 'n';
+								chessboard[i][j].color = ' ';
+								chessboard[i][j].type = ' ';
 								if (!is_black_in_check())
 								{
-									chessboard[i - 2][j + 1].set(temp_color, temp_type, not_selected, true);
-									chessboard[i][j].set('b', 'n', not_selected, true);
+									chessboard[i - 2][j + 1].color = temp_color;
+									chessboard[i - 1][j + 1].type = temp_type;
+									chessboard[i][j].color = 'b';
+									chessboard[i][j].type = 'n';
 									return false;
 								}
 								else
 								{
-									chessboard[i - 2][j + 1].set(temp_color, temp_type, not_selected, true);
-									chessboard[i][j].set('b', 'n', not_selected, true);
+									chessboard[i - 2][j + 1].color = temp_color;
+									chessboard[i - 2][j + 1].type = temp_type;
+									chessboard[i][j].color = 'b';
+									chessboard[i][j].type = 'n';
 								}
 							}
 						}
+
 						if (i + 2 < 8 && j - 1 >= 0)
 						{
 							temp_color = chessboard[i + 2][j - 1].color;
 							temp_type = chessboard[i + 2][j - 1].type;
 							if (chessboard[i + 2][j - 1].color != 'b')
 							{
-								chessboard[i + 2][j - 1].set('b', 'n', not_selected, true);
-								chessboard[i][j].set('b', 'n', not_selected, true);
+								chessboard[i + 2][j - 1].color = 'b';
+								chessboard[i + 2][j - 1].type = 'n';
+								chessboard[i][j].color = ' ';
+								chessboard[i][j].type = ' ';
 								if (!is_black_in_check())
 								{
-									chessboard[i + 2][j - 1].set(temp_color, temp_type, not_selected, true);
-									chessboard[i][j].set('b', 'n', not_selected, true);
+									chessboard[i + 2][j - 1].color = temp_color;
+									chessboard[i + 2][j - 1].type = temp_type;
+									chessboard[i][j].color = 'b';
+									chessboard[i][j].type = 'n';
 									return false;
 								}
 								else
 								{
-									chessboard[i + 2][j - 1].set(temp_color, temp_type, not_selected, true);
-									chessboard[i][j].set('b', 'n', not_selected, true);
+									chessboard[i + 2][j - 1].color = temp_color;
+									chessboard[i + 2][j - 1].type = temp_type;
+									chessboard[i][j].color = 'b';
+									chessboard[i][j].type = 'n';
 								}
 							}
 						}
+
 						if (i + 2 < 8 && j + 1 < 8)
 						{
 							temp_color = chessboard[i + 2][j + 1].color;
 							temp_type = chessboard[i + 2][j + 1].type;
 							if (chessboard[i + 2][j + 1].color != 'b')
 							{
-								chessboard[i + 2][j + 1].set('b', 'n', not_selected, true);
-								chessboard[i][j].set('b', 'n', not_selected, true);
+								chessboard[i + 2][j + 1].color = 'b';
+								chessboard[i + 2][j + 1].type = 'n';
+								chessboard[i][j].color = ' ';
+								chessboard[i][j].type = ' ';
 								if (!is_black_in_check())
 								{
-									chessboard[i + 2][j + 1].set(temp_color, temp_type, not_selected, true);
-									chessboard[i][j].set('b', 'n', not_selected, true);
+									chessboard[i + 2][j + 1].color = temp_color;
+									chessboard[i + 2][j + 1].type = temp_type;
+									chessboard[i][j].color = 'b';
+									chessboard[i][j].type = 'n';
 									return false;
 								}
 								else
 								{
-									chessboard[i + 2][j + 1].set(temp_color, temp_type, not_selected, true);
-									chessboard[i][j].set('b', 'n', not_selected, true);
+									chessboard[i + 2][j + 1].color = temp_color;
+									chessboard[i + 2][j + 1].type = temp_type;
+									chessboard[i][j].color = 'b';
+									chessboard[i][j].type = 'n';
 								}
 							}
 						}
+
 						if (i - 1 >= 0 && j - 2 >= 0)
 						{
-							temp_color = chessboard[i - 2][j - 1].color;
-							temp_type = chessboard[i - 2][j - 1].type;
+							temp_color = chessboard[i - 1][j - 2].color;
+							temp_type = chessboard[i - 1][j - 2].type;
 							if (chessboard[i - 1][j - 2].color != 'b')
 							{
-								chessboard[i - 1][j - 2].set('b', 'n', not_selected, true);
-								chessboard[i][j].set('b', 'n', not_selected, true);
+								chessboard[i - 1][j - 2].color = 'b';
+								chessboard[i - 1][j - 2].type = 'n';
+								chessboard[i][j].color = ' ';
+								chessboard[i][j].type = ' ';
 								if (!is_black_in_check())
 								{
-									chessboard[i - 1][j - 2].set(temp_color, temp_type, not_selected, true);
-									chessboard[i][j].set('b', 'n', not_selected, true);
+									chessboard[i - 1][j - 2].color = temp_color;
+									chessboard[i - 1][j - 2].type = temp_type;
+									chessboard[i][j].color = 'b';
+									chessboard[i][j].type = 'n';
 									return false;
 								}
 								else
 								{
-									chessboard[i - 1][j - 2].set(temp_color, temp_type, not_selected, true);
-									chessboard[i][j].set('b', 'n', not_selected, true);
+									chessboard[i - 1][j - 2].color = temp_color;
+									chessboard[i - 1][j - 2].type = temp_type;
+									chessboard[i][j].color = 'b';
+									chessboard[i][j].type = 'n';
 								}
 							}
 						}
@@ -2925,18 +3353,24 @@ bool Board::is_black_in_checkmate()
 							temp_type = chessboard[i - 1][j + 2].type;
 							if (chessboard[i - 1][j + 2].color != 'b')
 							{
-								chessboard[i - 1][j + 2].set('b', 'n', not_selected, true);
-								chessboard[i][j].set('b', 'n', not_selected, true);
+								chessboard[i - 1][j + 2].color = 'b';
+								chessboard[i - 1][j + 2].type = 'n';
+								chessboard[i][j].color = ' ';
+								chessboard[i][j].type = ' ';
 								if (!is_black_in_check())
 								{
-									chessboard[i - 1][j + 2].set(temp_color, temp_type, not_selected, true);
-									chessboard[i][j].set('b', 'n', not_selected, true);
+									chessboard[i - 1][j + 2].color = temp_color;
+									chessboard[i - 1][j + 2].type = temp_type;
+									chessboard[i][j].color = 'b';
+									chessboard[i][j].type = 'n';
 									return false;
 								}
 								else
 								{
-									chessboard[i - 1][j + 2].set(temp_color, temp_type, not_selected, true);
-									chessboard[i][j].set('b', 'n', not_selected, true);
+									chessboard[i - 1][j + 2].color = temp_color;
+									chessboard[i - 1][j + 2].type = temp_type;
+									chessboard[i][j].color = 'b';
+									chessboard[i][j].type = 'n';
 								}
 							}
 						}
@@ -2946,18 +3380,24 @@ bool Board::is_black_in_checkmate()
 							temp_type = chessboard[i + 1][j - 2].type;
 							if (chessboard[i + 1][j - 2].color != 'b')
 							{
-								chessboard[i + 1][j - 2].set('b', 'n', not_selected, true);
-								chessboard[i][j].set('b', 'n', not_selected, true);
+								chessboard[i + 1][j - 2].color = 'b';
+								chessboard[i + 1][j - 2].type = 'n';
+								chessboard[i][j].color = ' ';
+								chessboard[i][j].type = ' ';
 								if (!is_black_in_check())
 								{
-									chessboard[i + 1][j - 2].set(temp_color, temp_type, not_selected, true);
-									chessboard[i][j].set('b', 'n', not_selected, true);
+									chessboard[i + 1][j - 2].color = temp_color;
+									chessboard[i + 1][j - 2].type = temp_type;
+									chessboard[i][j].color = 'b';
+									chessboard[i][j].type = 'n';
 									return false;
 								}
 								else
 								{
-									chessboard[i + 1][j - 2].set(temp_color, temp_type, not_selected, true);
-									chessboard[i][j].set('b', 'n', not_selected, true);
+									chessboard[i + 1][j - 2].color = temp_color;
+									chessboard[i + 1][j - 2].type = temp_type;
+									chessboard[i][j].color = 'b';
+									chessboard[i][j].type = 'n';
 								}
 							}
 						}
@@ -2967,18 +3407,24 @@ bool Board::is_black_in_checkmate()
 							temp_type = chessboard[i + 1][j + 2].type;
 							if (chessboard[i + 1][j + 2].color != 'b')
 							{
-								chessboard[i + 1][j + 2].set('b', 'n', not_selected, true);
-								chessboard[i][j].set('b', 'n', not_selected, true);
+								chessboard[i + 1][j + 2].color = 'b';
+								chessboard[i + 1][j + 2].type = 'n';
+								chessboard[i][j].color = ' ';
+								chessboard[i][j].type = ' ';
 								if (!is_black_in_check())
 								{
-									chessboard[i + 1][j + 2].set(temp_color, temp_type, not_selected, true);
-									chessboard[i][j].set('b', 'n', not_selected, true);
+									chessboard[i + 1][j + 2].color = temp_color;
+									chessboard[i + 1][j + 2].type = temp_type;
+									chessboard[i][j].color = 'b';
+									chessboard[i][j].type = 'n';
 									return false;
 								}
 								else
 								{
-									chessboard[i + 1][j + 2].set(temp_color, temp_type, not_selected, true);
-									chessboard[i][j].set('b', 'n', not_selected, true);
+									chessboard[i + 1][j + 2].color = temp_color;
+									chessboard[i + 1][j + 2].type = temp_type;
+									chessboard[i][j].color = 'b';
+									chessboard[i][j].type = 'n';
 								}
 							}
 						}
