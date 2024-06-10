@@ -483,6 +483,18 @@ int main()
                 }
             }
         }
+
+        if (board.is_white_in_checkmate())
+        {
+            std::cout << "CZARNY DAL MATA\n";
+            board.reset();
+        }
+
+        if (board.is_black_in_checkmate())
+        {
+            std::cout << "BIALY DAL MATA\n";
+            board.reset();
+        }
        
         glfwSwapBuffers(window);
         glfwPollEvents();

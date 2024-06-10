@@ -46,8 +46,12 @@ struct Board {
 	void clear_selection();
 	bool is_white_in_check();
 	bool is_black_in_check();
+	bool is_white_in_checkmate();
+	bool is_black_in_checkmate();
 	
 
 	
 };
+
+
 #endif
