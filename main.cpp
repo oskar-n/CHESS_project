@@ -292,8 +292,20 @@ int main()
         if (!board.is_white_in_checkmate() && !board.is_black_in_checkmate())
         {
             glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         }
+
+        //checking for checkmate
+        if (board.is_white_in_checkmate())
+        {
+            glClearColor(0.396, 0.263, 0.129, 1.0);
+        }
+
+        if (board.is_black_in_checkmate())
+        {
+            glClearColor(1.0, 0.992, 0.816, 1.0);
+        }
+
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         // bind textures on corresponding texture units
         glActiveTexture(GL_TEXTURE0);
@@ -489,18 +501,7 @@ int main()
             }
         }
 
-        //checking for checkmate
-        if (board.is_white_in_checkmate())
-        {
-            glClearColor(0.396, 0.263, 0.129, 1.0);
-            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        }
-
-        if (board.is_black_in_checkmate())
-        {
-            glClearColor(1.0, 0.992, 0.816, 1.0);
-            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        }
+        
 
        
         glfwSwapBuffers(window);
