@@ -353,7 +353,7 @@ int main()
         glm::mat4 cube2_model = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
         cube2_model = glm::translate(cube2_model, glm::vec3(1.f * board.highlight_box.y, -1.5f, 1.f * board.highlight_box.x));
         Shader_2.setMat4("model", cube2_model);
-        if (!board.is_black_in_checkmate() || !board.is_white_in_checkmate())
+        if (!board.is_black_in_checkmate() && !board.is_white_in_checkmate())
         {
             glDrawArrays(GL_TRIANGLES, 36, 36);
         }
