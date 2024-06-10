@@ -110,18 +110,22 @@ void Board::select_piece()
 
 void Board::move_piece()
 {
-	
+	char temp_color;
+	char temp_type;
 		if (chessboard[highlight_box.x][highlight_box.y].state == selected && memory.last_piece.type != ' ')
 		{
 			if(!(highlight_box.x == memory.x && highlight_box.y == memory.y) && chessboard[highlight_box.x][highlight_box.y].color != turn)
 			{
 				if (is_white_in_check() && turn =='w')
 				{
+					temp_color = chessboard[highlight_box.x][highlight_box.y].color;
+					temp_type = chessboard[highlight_box.x][highlight_box.y].type;
 					chessboard[highlight_box.x][highlight_box.y] = memory.last_piece;
 					chessboard[memory.x][memory.y].set(' ', ' ', not_selected, false);
 					if (is_white_in_check())
 					{
-						chessboard[highlight_box.x][highlight_box.y].set(' ', ' ', not_selected, false);
+						chessboard[highlight_box.x][highlight_box.y].color = temp_color;
+						chessboard[highlight_box.x][highlight_box.y].type = temp_type;
 						chessboard[memory.x][memory.y] = memory.last_piece;
 					}
 					else
@@ -135,11 +139,14 @@ void Board::move_piece()
 				}
 				else if(is_black_in_check() && turn =='b')
 				{
+					temp_color = chessboard[highlight_box.x][highlight_box.y].color;
+					temp_type = chessboard[highlight_box.x][highlight_box.y].type;
 					chessboard[highlight_box.x][highlight_box.y] = memory.last_piece;
 					chessboard[memory.x][memory.y].set(' ', ' ', not_selected, false);
 					if (is_black_in_check())
 					{
-						chessboard[highlight_box.x][highlight_box.y].set(' ', ' ', not_selected, false);
+						chessboard[highlight_box.x][highlight_box.y].color = temp_color;
+						chessboard[highlight_box.x][highlight_box.y].type = temp_type;
 						chessboard[memory.x][memory.y] = memory.last_piece;
 					}
 					else
@@ -153,11 +160,14 @@ void Board::move_piece()
 				}
 				else if(!is_white_in_check() && turn == 'w')
 				{
+					temp_color = chessboard[highlight_box.x][highlight_box.y].color;
+					temp_type = chessboard[highlight_box.x][highlight_box.y].type;
 					chessboard[highlight_box.x][highlight_box.y] = memory.last_piece;
 					chessboard[memory.x][memory.y].set(' ', ' ', not_selected, false);
 					if (is_white_in_check())
 					{
-						chessboard[highlight_box.x][highlight_box.y].set(' ', ' ', not_selected, false);
+						chessboard[highlight_box.x][highlight_box.y].color = temp_color;
+						chessboard[highlight_box.x][highlight_box.y].type = temp_type;
 						chessboard[memory.x][memory.y] = memory.last_piece;
 					}
 					else
@@ -171,11 +181,14 @@ void Board::move_piece()
 				}
 				else if (!is_black_in_check() && turn == 'b')
 				{
+					temp_color = chessboard[highlight_box.x][highlight_box.y].color;
+					temp_type = chessboard[highlight_box.x][highlight_box.y].type;
 					chessboard[highlight_box.x][highlight_box.y] = memory.last_piece;
 					chessboard[memory.x][memory.y].set(' ', ' ', not_selected, false);
 					if (is_black_in_check())
 					{
-						chessboard[highlight_box.x][highlight_box.y].set(' ', ' ', not_selected, false);
+						chessboard[highlight_box.x][highlight_box.y].color = temp_color;
+						chessboard[highlight_box.x][highlight_box.y].type = temp_type;
 						chessboard[memory.x][memory.y] = memory.last_piece;
 					}
 					else
